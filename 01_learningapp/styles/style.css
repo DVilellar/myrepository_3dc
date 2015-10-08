@@ -1,0 +1,46 @@
+	html{ /*CAIXA HTML - totes las pàgines*/
+	background:silver;
+	}
+	body { /*CAIXA BODY - totes las pàgines*/
+	margin: 0 auto; 
+	font: normal normal normal 14px/1.7 verdana,sans-serif;  
+	color: black;
+	text-align: left;
+	}
+	canvas {
+	background:white;
+	}
+	#contenidor{
+	width: 1024px;
+	}
+	#cabecera{  
+	font: normal normal normal 10px/1.7 verdana,sans-serif;
+	background-image: url("cabecera.jpg");
+	padding-right:5px;
+	height:80px;
+	color:white;
+	text-align: right;	
+	}
+
+	#contingutgeneral{ 
+	font: normal normal normal 14px/1.7 verdana,sans-serif;  
+	background:#e7e9e9;
+	float:left;
+	width:100%;
+	}
+	#contingutgeneral p{  
+	padding-left:5px;
+	padding-right:5px;
+	}
+	#contingutesq{ 
+	margin-top:10px;
+	background:#e7e9e9;
+	float:left;
+	width:25%;
+	}
+	#contingutdret{ 
+	margin-top:10px;
+	background:#e7e9e9;
+	float:left;
+	width:75%;
+	}		

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="author" content="David Vilella Riera">
+	<meta name="description" content="DRAWING SHAPES WITH PAPER.JS">
+	<title>DRAWING SHAPES WITH PAPER.JS</title>
+	<link href="styles/style.css" rel="stylesheet" type="text/css">
+<!-- Llegim la llibreria paper.js -->
+<script type="text/javascript" src="js/paper.js"></script>
+
+<!-- Define inlined PaperScript associate it with myCanvas -->
+<script type="text/paperscript" canvas="myCanvas">
+	
+	
+	// CREAR PATH DE PAPER.JS PER DIBUIXAR UNA LÍNIA EN EL CANVAS
+	var path = new Path();
+	// donem color al perfil de la línia
+	path.strokeColor = 'purple';
+	var start = new Point(100, 100); //POSICIÓ INICIAL LINIA
+	// Moure a start i dibuixar una linea des d'allà
+	path.moveTo(start);
+	// Note the plus operator on Point objects.
+	// PaperScript does that for us, and much more!
+	path.lineTo(start + [100,0]);
+	path.lineTo(start + [100,100]);
+	path.lineTo(start + [0,100]);
+	path.lineTo(start + [0,0]);
+
+	
+	// CREAR UN CERCLE AMB EL CENTRE EN EL CENTRE DE LA VISTA I RADI DE 30
+	var path1 = new Path.Circle({
+		center: view.center,
+		radius: 30,
+		strokeColor: 'red'
+		});
+		
+	// CREAR UN RECTANGLE NORMAL DE COLOR BLAU
+	var rectangle = new Rectangle(new Point(20, 20), new Size(60, 70));
+	var path2 = new Path.Rectangle(rectangle);
+	path2.strokeColor = 'blue';
+	
+	// CREAR UN RECTANGLE AMB XAMFLANS ARRODONITS DE COLOR NEGRE
+	var rectangle1 = new Rectangle(new Point(40, 40), new Size(70, 70));
+	var cornerSize = new Size(10, 10);
+	var path3 = new Path.Rectangle(rectangle1, cornerSize);
+	path3.strokeColor = 'black';	
+
+		function onResize(event) {
+			// Whenever the window is resized, recenter the path:
+			path.position = view.center;
+		}
+		
+</script>
+
+<script type="text/javascript">	
+    function capturar()
+    {
+        // OBTENIM EL VALOR PER ID
+        var parametre1=document.getElementById("parametre1").value;
+        document.getElementById("resultats").innerHTML=" \
+     	 Parametre 1= "+parametre1;
+    return parametre1;
+	}
+</script>
+
+</head>
+<body id="contenidor">
+	<div id="cabecera"> <!--Capçalera -->
+			<h1>DRAWING SHAPES WITH PAPER.JS</h1>
+			<h2>Developped by: David Vilella Riera</h2>
+	</div>
+	<div id="contingutgeneral"><!--contingut general -->
+		<div id="contingutesq"><!--contingut general esquerra-->
+			<form id="form1">
+				<fieldset>
+					<legend>Introduir paràmetres</legend>		
+						<label for="parametre1">Parametre 1:</label><br>
+						<input type="text" name="nombre" value="" id="parametre1" class="formulario">      
+				</fieldset>
+			</form>
+			<input type="button" value="enviar" onclick="capturar()">
+			<div id="resultats"></div>
+		</div>
+		<div id="contingutdret"> <!--contingut general dreta-->		
+			<canvas id="myCanvas" width="500" height="500"><!--canvas -->
+					
+			</canvas>
+		</div>
+	</div>
+</body>
+</html>

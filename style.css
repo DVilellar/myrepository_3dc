@@ -1,0 +1,42 @@
+	html{ 
+	background:silver;
+	}
+	body { /*CAIXA BODY - totes las pàgines*/
+	margin: 0 auto; 
+	font: normal normal normal 14px/1.7 verdana,sans-serif;  
+	color: black;
+	text-align: left;
+	}
+	
+	#container{
+	width: 1024px;
+	}
+	#header{  
+	font: normal normal normal 10px/1.7 verdana,sans-serif;
+	padding-right:5px;
+	height:80px;
+	color:white;
+	text-align: right;	
+	}
+	#maincontent{ 
+	font: normal normal normal 14px/1.7 verdana,sans-serif;  
+	background:#e7e9e9;
+	float:left;
+	width:100%;
+	}
+	#maincontent p{  
+	padding-left:5px;
+	padding-right:5px;
+	}
+	#leftcontent{ 
+	margin-top:10px;
+	background:#e7e9e9;
+	float:left;
+	width:20%;
+	}
+	#rightcontent{ 
+	margin-top:10px;
+	background:white;
+	float:left;
+	width:80%;
+	}		
