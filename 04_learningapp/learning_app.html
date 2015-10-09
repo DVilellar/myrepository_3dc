@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="author" content="David Vilella Riera">
+		<meta name="description" content="Finding ordered points of shapes">
+		<title>Finding ordered points of shapes</title>
+		<script type="text/javascript" src="js/processing.min.js"></script> 
+		<link href="styles/style.css" rel="stylesheet" type="text/css">
+	
+		<script type="text/javascript">
+			/*CLASS point*/
+			function point (pcoord_x,pcoord_y){		
+					this.x=pcoord_x; 			//public property
+					this.y=pcoord_y;			//public property
+							
+					/*GETTERS*/
+					this.get_x=function(){
+						return this.x;
+						}
+					this.get_y=function(){
+						return this.y;
+						}
+					this.get_ident=function(){
+						return this.ident;
+						}					
+					/*SETTERS*/
+					this.set_x=function(valor){
+						this.x=valor; 
+						}
+					this.set_y=function(valor){
+						this.y=valor; 
+						}									
+				}
+		</script>						
+	</head>
+	
+	<body id="container">
+		<div id="header"> <!--Header -->
+				<h1>Finding ordered points of shapes</h1>
+				<h2>Developped by: David Vilella Riera</h2>
+		</div>
+		
+		<div id="maincontent"><!--main content-->
+			
+			<div id="leftcontent"><!--left content-->
+				<form id="form1">
+					<fieldset>
+						<legend>parameters</legend>	
+							<label for="shapetodraw">Select an option:</label>
+							<select name="shapetodraw" id="shapetodraw">    
+								<option value="Square">Square</option>
+								<option value="Triangle">Triangle</option>
+								<option value="Circle">Circle</option>
+							</select>	<br>
+							<label for="id_width">Width:</label>
+							<input type="text" id="id_width" value="600" size="15"><br>
+							<label for="id_height">Height:</label>
+							<input type="text" id="id_height" value="600" size="15"><br>
+					</fieldset>
+				</form>			
+			</div>	
+			
+			<div id="rightcontent"> <!--right content-->			
+				<canvas id="micanvas" width="300" height="300"></canvas>				
+			</div>			
+			<div id="footer"> <!--footer content-->
+				<p id="displaylistpoints">hola</p>				
+			</div>
+		</div>	
+		
+			<script type="text/javascript">
+				
+						var pointshape = new Array;		//array of points
+						function myprocess(processing) {
+							
+							processing.setup = function(){
+							processing.size(700,700); 
+							processing.stroke(0,0,0); 
+							processing.frameRate(15); 
+							posy=0;
+							};//end of setup processing function	
+							
+							processing.draw = function() {								
+								processing.background(255, 255, 255);						
+								
+								/*drawing from selection*/
+								var optionselected = document.getElementById("shapetodraw").value;
+								var v_width= parseInt(document.getElementById("id_width").value);
+								var v_height=parseInt(document.getElementById("id_height").value);
+								processing.fill(255,0,0); 
+								switch(optionselected) {
+									case "Square":
+										processing.noFill();
+										processing.stroke(0,0,255); 
+										processing.rect(30,30,v_width,v_height);
+										//define ordered points for square
+										pointshape[0] = new point (30,30);
+										pointshape[1] = new point (30+v_width,30);											
+										pointshape[2] = new point (30+v_width,30+v_height);
+										pointshape[3] = new point (30,30+v_height);
+										
+										/*orderedpoints=orderedpoints+pointshape[0].x;*/
+										//show points
+										processing.text(pointshape[0].x+",",30,25);
+										processing.text(pointshape[0].y,30+20,25);
+										processing.text(pointshape[1].x+",",30+v_width,25);
+										processing.text(pointshape[1].y,30+v_width+25,25);
+										processing.text(pointshape[2].x+",",30+v_width,30+v_height+15);
+										processing.text(pointshape[2].y,30+v_width+25,30+v_height+15);
+										processing.text(pointshape[3].x+",",30,30+v_height+15);
+										processing.text(pointshape[3].y,30+20,30+v_height+15);
+									break;
+									case "Triangle":
+										processing.noFill();
+										processing.stroke(0,0,255); 										
+										//define ordered points for triangle
+										var x1 = 30;
+										var y1 = 670;
+										var x2 = parseFloat(30+(v_width/2));
+										var y2 = parseFloat(670-v_height);
+										var x3 = parseFloat(v_width+30);
+										var y3 = y1;
+										pointshape[0] = new point (x1,y1);
+										pointshape[1] = new point (x2,y2);
+										pointshape[2] = new point (x3,y3);
+										//show points
+										processing.text(pointshape[0].x+",",x1,y1+15);
+										processing.text(pointshape[0].y,x1+20,y1+15);
+										processing.text(pointshape[1].x+",",x2,y2);
+										processing.text(pointshape[1].y,x2+25,y2);
+										processing.text(pointshape[2].x+",",x3,y3+15);
+										processing.text(pointshape[2].y,x3+25,y3+15);
+										
+										/*processing.text("(x1,y1):("+x1+","+y1+")",600,45);
+										processing.text("(x2,y2):("+x2+","+y2+")",600,55);
+										processing.text("(x3,y3):("+x3+","+y3+")",600,65);*/
+										processing.triangle(x1,y1,x2,y2,x3,y3);
+										
+									break;
+									case "Circle":
+										processing.noFill();
+										processing.stroke(0,0,255); 
+										processing.ellipse(350,350,v_width,v_height);
+									break;								
+								}													
+							};	//end of draw processing function				
+					} //end of function myprocess
+					
+					var canvas = document.getElementById("micanvas"); 
+					var miInstanciaProcessing = new Processing(canvas, myprocess);
+					
+									
+						cadena="points are:";													
+							for(var k=0;k<pointshape.length;k++){									//THIS STRUCTURE FOR IS NOT RUNNING CORRECTLY AND I DON'T KNOW WHY.																			
+									cadena = cadena+pointshape[k].x	;			
+							}
+						document.getElementById("displaylistpoints").innerHTML = cadena;				
+			</script>			
+	</body>
+</html>
