@@ -18,7 +18,16 @@
 		<div id="leftcontent"><!--left content-->			
 		</div>			
 		<div id="rightcontent"> <!--right content-->			
-			<textarea id="inputTextToSave" style="width:512px;height:256px" placeholder="Write here your text."></textarea>
+			<textarea id="inputTextToSave" style="width:512px;height:256px" placeholder="Write here your text.">
+G28
+G92 E0
+G1 Z50 F3000
+G1 X100
+G1 Y100
+G1 X0
+G28
+M84			
+			</textarea>
 			<P><button onclick="saveTextAsFile()">Save Text on textarea to File .gcode</button></P>
 		</div>			
 	</div> 
