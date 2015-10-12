@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>	
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="author" content="David Vilella Riera">
+		<meta name="description" content="Finding ordered points of shapes and saving them to a file .gcode">
+		<title>Finding ordered points of shapes</title>
+		<script type="text/javascript" src="js/processing.min.js"></script>
+		<script type="text/javascript" src="js/savetextasfile.js"></script>
+		<link href="styles/style.css" rel="stylesheet" type="text/css">		
+	</head>
+	<body id="container">
+		<div id="header"> <!--Header -->
+				<h1>Finding ordered points of shapes and saving them to a file .gcode</h1>
+				<h2>Developped by: David Vilella Riera</h2>
+		</div>
+		
+		<div id="maincontent"><!--main content-->			
+			
+			<div id="leftcontent"><!--left content-->
+				<form id="form1">
+					<fieldset>
+						<legend>parameters</legend>	
+							<label for="shapetodraw">Select an option:</label>
+							<select name="shapetodraw" id="shapetodraw">    
+								<option value="Square">Square</option>
+								<option value="Triangle">Triangle</option>
+								<option value="Circle">Circle</option>
+							</select>	<br>
+							<label for="id_width">Width:</label>
+							<input type="text" id="id_width" value="600" size="15"><br>
+							<label for="id_height">Height:</label>
+							<input type="text" id="id_height" value="600" size="15"><br>
+					</fieldset>	
+				</form>					
+			</div>			
+			
+			<div id="rightcontent"> <!--right content-->			
+				<canvas data-processing-sources="pde/basicshapes.pde"></canvas>				
+			</div>			
+			
+			<div id="footer"> <!--footer content-->
+				<p>ordered points are: <span id="displaylistpoints">hola</span> </p>				
+				<P><button id="button" onclick="saveTextAsFile()">Save ordered points</button></P>		
+			</div>
+		</div>				
+	</body>	
+</html>
