@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>	
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="author" content="David Vilella Riera">
+		<meta name="description" content="Finding ordered points of shapes and saving them to a file .gcode with gcode language">
+		<title>Finding ordered points of shapes</title>
+		<script type="text/javascript" src="js/processing.js"></script> 
+		<script type="text/javascript" src="js/processing.min.js"></script>
+		<script type="text/javascript" src="js/savetextasfile.js"></script>
+		<script type="text/javascript" src="js/savetextasfile1.js"></script>
+		<link href="styles/style.css" rel="stylesheet" type="text/css">		
+	</head>
+	<body id="container">
+		<div id="header"> <!--Header -->
+				<h1>Finding ordered points of shapes and saving them to a file .gcode with gcode language</h1>
+				<h2>Developped by: David Vilella Riera</h2>
+		</div>
+		
+		<div id="maincontent"><!--main content-->			
+			
+			<div id="leftcontent"><!--left content-->
+				<form id="form1">
+					<fieldset>
+						<legend>parameters</legend>	
+							<label for="shapetodraw">Select an option:</label>
+							<select name="shapetodraw" id="shapetodraw">    
+								<option value="Square">Square</option>
+								<option value="Triangle">Triangle</option>
+								<option value="Circle">Circle</option>
+							</select>	<br>
+							<label for="id_width">Width:</label>
+							<input type="text" id="id_width" value="600" size="15"><br>
+							<label for="id_height">Height:</label>
+							<input type="text" id="id_height" value="600" size="15"><br>
+					</fieldset>	
+				</form>					
+			</div>			
+			
+			<div id="rightcontent"> <!--right content-->			
+				<canvas data-processing-sources="pde/basicshapes.pde"></canvas>				
+			</div>			
+			
+			<div id="footer"> <!--footer content-->
+				<p><strong>Considering that printer 2D limits are 100mmx100mm gcode is:</strong></p>
+				<textarea id="gcode" style="width:960px;height:256px" placeholder="Write here your text.">gcode</textarea> 
+				<button id="button2" onclick="saveTextAsFile1()">Save Gcode</button>					
+				<p><strong>Ordered points without scale are:</strong> <span id="displaylistpoints">hola</span> </p>
+				<button id="button1" onclick="saveTextAsFile()">Save ordered points</button>
+			</div>
+		</div>				
+	</body>	
+</html>
