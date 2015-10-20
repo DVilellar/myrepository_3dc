@@ -31,13 +31,12 @@ void draw() {
   int v_width = parseInt(document.getElementById("id_width").value);
   int v_height = parseInt(document.getElementById("id_height").value);
   String optionselected=document.getElementById("shapetodraw").value;
-   
+  
   // initialiting variable n_selected
   if (optionselected == "Square") {n_selected=1;}
   if (optionselected == "Triangle") {n_selected=2;}
   if (optionselected == "Circle") {n_selected=3;}
   
-   
   orderedpoints="";  //initializing variable string
   background(c_white);  //background color
   
@@ -174,16 +173,19 @@ void createGcode(int n_points){
   gcode=gcode+"G28\n";
   gcode=gcode+";Move to the first point to the lowest Z axis height (by default Z=0) and set the movement feedrate (by default we use 3000mm/min)\n";
   p_counter=0;
-  gcode=gcode+"G1 X"+(x[p_counter])+" Y"+(y[p_counter])+" Z0 F3000\n";
+  gcode=gcode+"G1 X"+nf(x[p_counter],2,2)+" Y"+nf(y[p_counter],2,2)+" Z0 F3000\n";
   for ( p_counter = 1; p_counter < n_points; p_counter = p_counter+1) {
     gcode=gcode+";Move to the point "+(p_counter+1)+"\n";
-    gcode=gcode+"G1 X"+(x[p_counter])+" Y"+(y[p_counter])+"\n";
+    gcode=gcode+"G1 X"+nf(x[p_counter],2,2)+" Y"+nf(y[p_counter],2,2)+"\n";
   }
   gcode=gcode+";to close shape we need to go back to the first point\n";
   p_counter=0;
-  gcode=gcode+"G1 X"+(x[p_counter])+" Y"+(y[p_counter])+"\n";
+  gcode=gcode+"G1 X"+nf(x[p_counter],2,2)+" Y"+nf(y[p_counter],2,2)+"\n";
+  gcode=gcode+";Homing all axis\n";
+  gcode=gcode+"G28\n";  
   gcode=gcode+";Disable motors command\n";
   gcode=gcode+"M84";
+  gcode=gcode.replace(",","."); //replace "," to dot "."
 } 
 
  /*
@@ -225,6 +227,8 @@ void  scalePointsToMaxDimension(int n_points){
     x[i]=x[i]*x_scale;
     y[i]=y[i]*y_scale;
   } 
+  
+  
 }  
   
   
