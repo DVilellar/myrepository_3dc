@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>	
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="author" content="David Vilella Riera">
+		<meta name="description" content="Finding ordered points of shapes and saving them to a file .gcode with gcode language">
+		<title>Squares, triangle, circle and stars for 3DFP</title>
+		
+		<script type="text/javascript" src="js/processing.min.js"></script>
+		<script type="text/javascript" src="js/savetextasfile.js"></script>
+		<script type="text/javascript" src="js/savetextasfile1.js"></script>
+		<link href="styles/style.css" rel="stylesheet" type="text/css">		
+	</head>
+	<body id="container">
+		<div id="header"> <!--Header -->
+				<h1>Squares, triangle, circle and stars for 3DFP</h1>
+				<h2>Developped by: David Vilella Riera</h2>
+		</div>
+		
+		<div id="maincontent"><!--main content-->			
+			
+			<div id="leftcontent"><!--left content-->
+				<form id="form1">
+						
+						<label for="shapetodraw">Select an option:</label>
+						<select name="shapetodraw" id="shapetodraw">    
+							<option value="Square">Square</option>
+							<option value="Triangle">Triangle</option>	
+							<option value="Circle">Circle</option>
+							<option value="Star">Star</option>												
+						</select>	<br>
+					
+					<fieldset>
+						<legend>Square, Triangle and Circle</legend>							
+							<label for="id_width">Width:</label>
+							<input type="text" id="id_width" value="400" size="15"><br>
+							<label for="id_height">Height:</label>
+							<input type="text" id="id_height" value="600" size="15"><br>
+					</fieldset>
+					
+					<fieldset>
+						<legend>Star</legend>							
+							<label for="n_points">how much point star has:</label>
+							<input type="text" id="n_pointsstar" value="5" size="15"><br>
+							<label for="id_radius1">Radius 1:</label>
+							<input type="text" id="id_radius1" value="150" size="15"><br>
+							<label for="id_radius2">Radius 2:</label>
+							<input type="text" id="id_radius2" value="300" size="15"><br>
+					</fieldset>	
+					<fieldset>
+						<legend>Feedrate and Initial height</legend>
+							<label for="id_feedrate">Feedrate:</label>
+							<input type="text" id="id_feedrate" value="3000" size="15"><br>
+							<label for="id_iheight">Initial height:</label>
+							<input type="text" id="id_iheight" value="0" size="15"><br>
+					</fieldset>
+					<fieldset>
+						<legend>Material and nozzle diameter</legend>
+							<label for="id_matdiameter">Material diameter:</label>
+							<input type="text" id="id_matdiameter" value="40.5" size="15"><br>
+							<label for="id_nozzlediameter">Nozzle diameter:</label>
+							<input type="text" id="id_nozzlediameter" value="1.5" size="15"><br>
+					</fieldset>						
+				</form>					
+			</div>			
+			
+			<div id="rightcontent"> <!--right content-->			
+				<canvas data-processing-sources="pde/basicshapes.pde"></canvas>				
+			</div>			
+			
+			<div id="footer"> <!--footer content-->				
+				<p><strong>Considering that printer 2D limits are 100mmx100mm gcode is:</strong></p>
+				<textarea id="gcode" style="width:920px;height:400px" placeholder="Write here your text.">gcode</textarea> <!--textarea for gcode generated on basicshapes.pde-->
+				<button id="button2" onclick="saveTextAsFile1()">Save Gcode</button>					
+				<p><strong>Ordered points without scale are:</strong> <span id="displaylistpoints">hola</span> </p> <!--string orderedpoints generated on basicshapes.pde-->
+				<button id="button1" onclick="saveTextAsFile()">Save ordered points</button>
+			</div>
+		</div>				
+	</body>	
+</html>
