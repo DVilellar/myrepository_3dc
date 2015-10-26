@@ -224,13 +224,19 @@ void createGcode(int n_points, int initialheight, int feedrate){
   
   gcode=gcode+";Homing all axis\n";
   gcode=gcode+"G28\n";
+    
+  gcode=gcode+"; Set units to milimeters\n";
+  gcode=gcode+"G21\n";
   
+  gcode=gcode+"; Set absolute coordinates\n";
+  gcode=gcode+"G90\n";
+   
   gcode=gcode+";Reset extruder value\n";
   gcode=gcode+"G92 E0\n";
   
   gcode=gcode+";Move to the first point to the lowest Z axis height (by default Z=0) and set the movement feedrate (by default we use 3000mm/min)\n";
   p_counter=0;
-  gcode=gcode+"G1 X"+nf(x[p_counter],2,2)+" Y"+nf(y[p_counter],2,2)+" Z"+initialheight+" F"+feedrate+"\n";
+  gcode=gcode+"G1 X"+nf(x[p_counter],2,4)+" Y"+nf(y[p_counter],2,4)+" Z"+initialheight+" F"+feedrate+"\n";
   
   gcode=gcode+";Build up pressure\n";
   gcode=gcode+"G1 E"+releaseinputvalue+" F200\n";
@@ -240,16 +246,16 @@ void createGcode(int n_points, int initialheight, int feedrate){
   
   for ( p_counter = 1; p_counter < n_points; p_counter = p_counter+1) {
     gcode=gcode+";Move to the point "+(p_counter+1)+"\n";
-    gcode=gcode+"G1 X"+nf(x[p_counter],2,2)+" Y"+nf(y[p_counter],2,2)+" E"+nf(e[p_counter],2,2)+"\n";
+    gcode=gcode+"G1 X"+nf(x[p_counter],2,4)+" Y"+nf(y[p_counter],2,4)+" E"+nf(e[p_counter],2,6)+"\n";
   }
   
   gcode=gcode+";to close shape we need to go back to the first point\n";
   p_counter=0;
-  gcode=gcode+"G1 X"+nf(x[p_counter],2,2)+" Y"+nf(y[p_counter],2,2)+" E"+nf(e[n_points],2,2)+"\n";
+  gcode=gcode+"G1 X"+nf(x[p_counter],2,4)+" Y"+nf(y[p_counter],2,4)+" E"+nf(e[n_points],2,6)+"\n";
   
   gcode=gcode+";Release pressure\n";
   lastE= e[n_points]-releaseinputvalue;
-  gcode=gcode+"G1 E"+nf(lastE,2,2)+" F200\n";
+  gcode=gcode+"G1 E"+nf(lastE,2,6)+" F200\n";
   
   gcode=gcode+";Set up the feedrate\n";
   gcode=gcode+"G1 F"+feedrate+"\n";
@@ -260,7 +266,18 @@ void createGcode(int n_points, int initialheight, int feedrate){
   gcode=gcode+";Disable motors command\n";
   gcode=gcode+"M84";
   
+  /* Replacing some gcodes details*/
   gcode=gcode.replace(",","."); //replace "," to dot "."
+  gcode=gcode.replace("00.","0.");
+  gcode=gcode.replace("01.","1.");
+  gcode=gcode.replace("02.","2.");
+  gcode=gcode.replace("03.","3.");
+  gcode=gcode.replace("04.","4.");
+  gcode=gcode.replace("05.","5.");
+  gcode=gcode.replace("06.","6.");
+  gcode=gcode.replace("07.","7.");
+  gcode=gcode.replace("08.","8.");
+  gcode=gcode.replace("09.","9.");
 } 
 
  /*
