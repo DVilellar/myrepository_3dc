@@ -39,6 +39,8 @@ void draw() {
   int v_iheight = parseInt(document.getElementById("id_iheight").value);
   float v_matdiameter = parseFloat(document.getElementById("id_matdiameter").value);
   float v_nozzlediameter = parseFloat(document.getElementById("id_nozzlediameter").value);
+  float v_ExtValueBuildUpPressure = parseFloat(document.getElementById("id_ExtValueBuildUpPressure").value);
+  float v_ExtValueReleasePressure = parseFloat(document.getElementById("id_ExtValueReleasePressure").value);
   
   /*Calculating nozzle_material_surfaces_ratio*/
   float v_materialsurface=PI*pow((v_matdiameter/2.0),2);
@@ -75,7 +77,7 @@ void draw() {
                     rect(x[0],y[0],v_width,v_height); 
                     scalePointsToMaxDimension(numpoints);
                     calculateExtrusionValues(numpoints,nozzle_material_surfaces_ratio);
-                    createGcode(numpoints,v_iheight,v_feedrate);
+                    createGcode(numpoints,v_iheight,v_feedrate,v_ExtValueBuildUpPressure,v_ExtValueReleasePressure);
                     popMatrix();                                
                   break;
                   
@@ -95,7 +97,7 @@ void draw() {
                     triangle(x[0],y[0],x[1],y[1],x[2],y[2]);
                     scalePointsToMaxDimension(numpoints);
                     calculateExtrusionValues(numpoints,nozzle_material_surfaces_ratio);
-                    createGcode(numpoints,v_iheight,v_feedrate);
+                    createGcode(numpoints,v_iheight,v_feedrate,v_ExtValueBuildUpPressure,v_ExtValueReleasePressure);
                     popMatrix();             
                   break;
                   
@@ -110,7 +112,7 @@ void draw() {
                     ellipse(0,0,v_width,v_height);
                     scalePointsToMaxDimension(numpoints);
                     calculateExtrusionValues(numpoints,nozzle_material_surfaces_ratio);
-                    createGcode(numpoints,v_iheight,v_feedrate);
+                    createGcode(numpoints,v_iheight,v_feedrate,v_ExtValueBuildUpPressure,v_ExtValueReleasePressure);
                     popMatrix();
                   break;
                   
@@ -123,7 +125,7 @@ void draw() {
                     star(0, 0, v_radius1, v_radius2,v_pointsstar);  //draw the star
                     scalePointsToMaxDimension(numpoints);
                     calculateExtrusionValues(numpoints,nozzle_material_surfaces_ratio);
-                    createGcode(numpoints,v_iheight,v_feedrate);
+                    createGcode(numpoints,v_iheight,v_feedrate,v_ExtValueBuildUpPressure,v_ExtValueReleasePressure);
                     createOrderedPoints(numpoints);
                     popMatrix();          
                   break;
@@ -213,11 +215,10 @@ void calcEllipsePoints(int n_points, float c_width, float c_length){
 /*
 *This function is to create the string called gcode following G-code language
 */
-void createGcode(int n_points, int initialheight, int feedrate){
+void createGcode(int n_points, int initialheight, int feedrate, float ExtValueBuildUpPressure, float ExtValueReleasePressure){
   int p_counter; 
   float lastE;
-  float releaseinputvalue=2.5;
-  
+    
   gcode=";gcode generated from basicshapes.pde\n";
   gcode=gcode+";developped by: David Vilella Riera\n";
   gcode=gcode+";THE CODE:\n";
@@ -239,7 +240,7 @@ void createGcode(int n_points, int initialheight, int feedrate){
   gcode=gcode+"G1 X"+nf(x[p_counter],2,4)+" Y"+nf(y[p_counter],2,4)+" Z"+initialheight+" F"+feedrate+"\n";
   
   gcode=gcode+";Build up pressure\n";
-  gcode=gcode+"G1 E"+releaseinputvalue+" F200\n";
+  gcode=gcode+"G1 E"+ExtValueBuildUpPressure+" F200\n";
   gcode=gcode+"G92 E0\n";
   gcode=gcode+"G1 F"+feedrate+"\n";
   
@@ -254,7 +255,7 @@ void createGcode(int n_points, int initialheight, int feedrate){
   gcode=gcode+"G1 X"+nf(x[p_counter],2,4)+" Y"+nf(y[p_counter],2,4)+" E"+nf(e[n_points],2,6)+"\n";
   
   gcode=gcode+";Release pressure\n";
-  lastE= e[n_points]-releaseinputvalue;
+  lastE= e[n_points]-ExtValueReleasePressure;
   gcode=gcode+"G1 E"+nf(lastE,2,6)+" F200\n";
   
   gcode=gcode+";Set up the feedrate\n";
