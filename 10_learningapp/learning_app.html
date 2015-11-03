@@ -71,7 +71,11 @@
 							<label for="id_ExtValueReleasePressure">Release pressure:</label>
 							<input type="text" id="id_ExtValueReleasePressure" value="2" size="6"><br>
 					</fieldset>			
-				</form>					
+				</form>	
+				<input type="text" value="filename" id="textFilename">.gcode </input><br>
+				<button id="button2" onclick="saveTextAsFile1()">Save Gcode</button>					
+				<!--<p><strong>Ordered points without scale are:</strong> <span id="displaylistpoints">hola</span> </p> -->
+				<!--<button id="button1" onclick="saveTextAsFile()">Save ordered points</button>-->	
 			</div>						
 			
 			<div id="rightcontent"> <!--right content-->			
@@ -80,13 +84,9 @@
 			<div id="footer"> <!--footer content-->				
 				<p><strong>Considering that printer 2D limits of printer are 100mmx100mm gcode is:</strong></p>
 				<textarea id="gcode" placeholder="Write here your text.">gcode</textarea> <!--textarea for gcode generated on basicshapes.pde-->
-				<input type="text" value="filename" id="textFilename">.gcode </input><br>
-				<button id="button2" onclick="saveTextAsFile1()">Save Gcode</button>					
-				<!--<p><strong>Ordered points without scale are:</strong> <span id="displaylistpoints">hola</span> </p> -->
-				<!--<button id="button1" onclick="saveTextAsFile()">Save ordered points</button>-->
-			</div>
-			<div id="lastfooter"> <!--footer content-->	
 				
+			</div>
+			<div id="lastfooter"> <!--footer content-->					
 			</div>
 		</div>				
 	</body>

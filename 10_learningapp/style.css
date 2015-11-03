@@ -60,7 +60,8 @@
 	
 	button{ 
 	font: normal normal normal 18px/1.7 verdana,sans-serif; 
-	color: black;
+	color: #63030e;
+	font-weight: bold;
 	}
 	#displaylistpoints{
 	font: normal normal normal 14px/1.7 verdana,sans-serif; 
