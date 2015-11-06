@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="author" content="David Vilella Riera">
+		<meta name="description" content="Squares, triangle, circle and stars for 3DFP">
+		<title>Squares, triangle, circle and stars for 3DFP</title>
+		<script type="text/javascript" src="js/processing.min.js"></script>
+		<!--<script type="text/javascript" src="js/savetextasfile.js"></script>-->
+		<script type="text/javascript" src="js/savetextasfile1.js"></script>	
+		<link href="style.css" rel="stylesheet" type="text/css">						
+	</head>
+	
+	
+	<body id="container">
+		<div id="header"> <!--Header -->
+				<h2>Developped by: David Vilella Riera</h2>	
+				<h2>For: <a href="http://www.3digitalcooks.com">3digitalcooks.com</a></h2>				
+		</div>
+		
+		<div id="maincontent"><!--main content-->
+			
+			<div id="leftcontent"><!--left content-->
+				<form id="form1">
+						
+						<label for="shapetodraw">Select an option:</label>
+						<select name="shapetodraw" id="shapetodraw">    
+							<option value="Rectangle">Rectangle</option>
+							<option value="Triangle">Triangle</option>	
+							<option value="Ellipse">Ellipse</option>
+							<option value="Star">Star</option>
+							<option value="Flower">Flower</option>
+							<option value="Rounded Star" selected>Rounded Star</option>	
+							<option value="Heart">Heart</option>									
+						</select>	<br>
+					
+					<fieldset>
+						<legend>Rectangle / Triangle / Ellipse</legend>							
+							<label for="id_width">Width:</label>
+							<input type="text" id="id_width" value="600" size="15"><br>
+							<label for="id_height">Height:</label>
+							<input type="text" id="id_height" value="600" size="15"><br>
+					</fieldset>
+					
+					<fieldset>
+						<legend>Star</legend>							
+							<label for="n_points">number of point star:</label>
+							<input type="text" id="n_pointsstar" value="5" size="3"><br>							
+							<label for="id_radius1">Radius 1:</label>
+							<input type="text" id="id_radius1" value="150" size="15"><br>
+							<label for="id_radius2">Radius 2:</label>
+							<input type="text" id="id_radius2" value="300" size="15"><br>
+					</fieldset>	
+					
+					<fieldset>
+						<legend>Flower</legend>							
+							<label for="n_petals">number of petals:</label>
+							<input type="text" id="n_petals" value="6" size="3"><br>							
+					</fieldset>	
+					
+					<fieldset>
+						<legend>Rounded Star</legend>							
+							<label for="n_curves">number of curves:</label>
+							<input type="text" id="n_curves" value="7" size="3"><br>							
+					</fieldset>
+
+					<fieldset>
+						<legend>Size heart factor</legend>							
+							<label for="n_sizeheart">Size heart factor:</label>
+							<input type="text" id="n_sizeheart" value="18" size="3"><br>							
+					</fieldset>		
+					
+					<fieldset>
+						<legend>Design 2.5D parameters</legend>	
+							<label for="id_iheight">Initial layer height(mm)</label>
+							<input type="text" id="id_iheight" value="1.5" size="1"><br>
+							<label for="id_layerheight">Layer height(mm)</label>
+							<input type="text" id="id_layerheight" value="1" size="3"><br>
+							<label for="id_numlayers">number of layers</label>
+							<input type="text" id="id_numlayers" value="3" size="3"><br>					
+					</fieldset>	
+					
+					<fieldset>
+						<legend>Printer parameters</legend>
+							<label for="id_feedrate">Feedrate(mm/min)</label>
+							<input type="text" id="id_feedrate" value="3000" size="5"><br>
+							<label for="id_matdiameter">Material diameter(mm)</label>
+							<input type="text" id="id_matdiameter" value="40.5" size="2"><br>
+							<label for="id_nozzlediameter">Nozzle diameter(mm)</label>
+							<input type="text" id="id_nozzlediameter" value="1.5" size="4"><br>
+							<label for="id_ExtValueBuildUpPressure">Build up pressure:</label>
+							<input type="text" id="id_ExtValueBuildUpPressure" value="2.5" size="6"><br>
+							<label for="id_ExtValueReleasePressure">Release pressure:</label>
+							<input type="text" id="id_ExtValueReleasePressure" value="2" size="6"><br>
+					</fieldset>			
+				</form>	
+				<input type="text" value="filename" id="textFilename">.gcode </input><br>
+				<button id="button2" onclick="saveTextAsFile1()">Save Gcode</button>					
+				<!--<p><strong>Ordered points without scale are:</strong> <span id="displaylistpoints">hola</span> </p> -->
+				<!--<button id="button1" onclick="saveTextAsFile()">Save ordered points</button>-->	
+			</div>					
+			
+			<div id="rightcontent"> <!--right content-->			
+				<canvas id="micanvas" width="300" height="300"></canvas>				
+			</div>			
+			<div id="footer"> <!--footer content-->				
+				<p><strong>Considering that printer 2D limits of printer are 100mmx100mm gcode is:</strong></p>
+				<textarea id="gcode" placeholder="Write here your text.">gcode</textarea> <!--textarea for gcode generated on basicshapes.pde-->
+				
+			</div>
+			<div id="lastfooter"> <!--footer content-->					
+			</div>
+		</div>				
+	</body>
+	<script type="text/javascript" src="js/basicshapes.js"></script>
+</html>
