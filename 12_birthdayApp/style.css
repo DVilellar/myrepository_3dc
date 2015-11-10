@@ -1,0 +1,75 @@
+	html{
+	background:#f3f1e3;
+	}
+	body { 
+	margin: 0 auto; 
+	font: normal normal normal 22px/1.7 verdana,sans-serif;  
+	color: black;	
+	}
+	
+	#container{
+	width: 960px;
+	}
+	#header{  
+	font: normal normal normal 8px/1.7 verdana,sans-serif;
+	height:145px;	
+	color:white;
+	background-image: url(data/header_background.png);
+	text-align: left;	
+	}
+	
+	#maincontent{ 
+	font: normal normal normal 22px/1.7 verdana,sans-serif;  
+	width:100%;
+	}
+	.positioncontent1 {
+    margin-left:150px;
+	}
+	.leftd {
+    position: relative;
+	left: 2%;
+	top:4%;	
+	}
+	#micanvas{
+	border-style: inset;
+	border-color: #c6c6c6;
+	}
+	#content1{ 	
+	padding: 2px;
+	float:left;
+	color: #63030e;
+	}
+	#content2{ 
+	float:left;
+	}
+	#footer{ 	
+	background:#f5f4e0;
+	float:left;
+	width:100%;
+	border-style: groove;
+    border-width: medium;
+	}	
+	#lastfooter{
+	float:left;
+	}
+	#form1{ 
+	font: normal normal normal 22px/1.7 verdana,sans-serif;  
+	}
+	.selectinput{ 
+	font: normal normal normal 22px/1.7 verdana,sans-serif;  
+	color: grey;
+	height:50px;
+	}
+	#button2{ 
+	font: normal normal normal 22px/1.7 verdana,sans-serif; 
+	color: #63030e;
+	font-weight: bold;
+	}	
+	#displaylistpoints{
+	font: normal normal normal 14px/1.7 verdana,sans-serif; 
+	color: #63030e;
+	}
+	#gcode{
+	width:920px;
+	height:500px;
+	}
