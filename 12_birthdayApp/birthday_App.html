@@ -7,15 +7,17 @@
 		<title>birthday date</title>
 		<script type="text/javascript" src="js/processing.min.js"></script>
 		<!--<script type="text/javascript" src="js/savetextasfile.js"></script>-->
-		<script type="text/javascript" src="js/savetextasfile1.js"></script>	
-		<link href="style.css" rel="stylesheet" type="text/css">						
-	</head>
-	
+		<script type="text/javascript" src="js/savetextasfile1.js"></script>		
+		<link href="style.css" rel="stylesheet" type="text/css">
+		<script type="text/javascript" >
+			var counterclics=1;
+		</script>	
+	</head>	
 	
 	<body id="container">
 		<div id="header"> <!--Header -->
 				<h2 class="leftd">Developped by: David Vilella Riera</h2>	
-				<h2 class="leftd">For: <a href="http://www.3digitalcooks.com">3digitalcooks.com</a></h2>			
+				<h2 class="leftd">For: <a href="http://www.3digitalcooks.com" target="_blank">3digitalcooks.com</a></h2>			
 		</div>
 		
 		<div id="maincontent"><!--main content-->
@@ -78,19 +80,20 @@
 			</div>					
 			
 			<div id="content2"> <!--content2 content-->			
-				<canvas id="micanvas" width="300" height="300"></canvas>
-				<div id="buttongcode">
-					<input type="text" value="filename" id="textFilename" class="selectinput">.gcode </input>
-					<button id="button2" onclick="saveTextAsFile1()">Save Gcode</button>
-				</div>	
-			</div>			
+				<canvas id="micanvas" width="300" height="300"></canvas>				
+			</div>	
+						
 			<div id="footer"> <!--footer content-->				
 				<p><strong>Considering that printer 2D limits of printer are 100mmx100mm gcode is:</strong></p>
 				<textarea id="gcode" placeholder="Write here your text.">gcode</textarea> <!--textarea for gcode generated on basicshapes.pde-->
 			</div>
+			
+			<div id="div_settingbutton"> <!--div_settingbutton cotent-->					
+				<button id="settingbutton" onclick="counterclics=showdivsettingbutton(counterclics);">Settings</button>
+			</div>
+			
 			<div id="lastfooter"> <!--last footer content-->					
-				<form id="form1">						
-						
+				<form id="form1">							
 					<fieldset>
 						<legend>Design 2.5D parameters</legend>	
 							<label for="id_iheight">Initial layer height(mm)</label>
@@ -116,7 +119,13 @@
 					</fieldset>			
 				</form>	
 			</div>
+			
+			<div id="buttongcode">
+					<input type="text" value="filename" id="textFilename" class="selectinput" size="8" maxlength="8">.gcode </input>
+					<button id="button2" onclick="saveTextAsFile1()">Save Gcode</button>
+			</div>	
+			
 		</div>				
 	</body>
-	<script type="text/javascript" src="js/basicshapes.js"></script>
+	<script type="text/javascript" src="js/basicshapes.js"></script>			
 </html>

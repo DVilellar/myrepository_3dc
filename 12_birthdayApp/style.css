@@ -25,6 +25,7 @@
 	.positioncontent1 {
     margin-left:150px;
 	}
+
 	.leftd {
     position: relative;
 	left: 2%;
@@ -35,7 +36,7 @@
 	border-color: #c6c6c6;
 	}
 	#content1{ 	
-	padding: 2px;
+	
 	float:left;
 	color: #63030e;
 	}
@@ -49,7 +50,14 @@
 	border-style: groove;
     border-width: medium;
 	}	
+	#div_settingbutton{
+	float:right;
+	}
 	#lastfooter{
+	float:right;
+	}
+	#buttongcode
+	{
 	float:left;
 	}
 	#form1{ 
@@ -73,3 +81,9 @@
 	width:920px;
 	height:500px;
 	}
+	
+	#settingbutton{ 
+	font: normal normal normal 22px/1.7 verdana,sans-serif; 
+	color: #63030e;
+	font-weight: bold;
+	}	

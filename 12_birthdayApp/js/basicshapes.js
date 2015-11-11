@@ -1,5 +1,20 @@
-document.getElementById("footer").style.display = "none";
-document.getElementById("lastfooter").style.display = "none";
+document.getElementById("footer").style.display = "none"; //don't show textarea
+document.getElementById("lastfooter").style.display = "none"; //don't show settings form
+document.getElementById("div_settingbutton").style.display = "block"; //show setting button
+/*
+*This function is called only from html file (button settings)
+*/
+function showdivsettingbutton(counterclics){
+	if (counterclics%2!=0){
+		document.getElementById("lastfooter").style.display = "block"; //show settings form
+	}
+	else{
+		document.getElementById("lastfooter").style.display = "none"; //don't show settings form
+	}
+	counterclics=counterclics+1;
+	return counterclics;
+}	
+
 /*CLASS point*/
 function point (pcoord_x,pcoord_y){		
 	this.x=pcoord_x; 			//public property
@@ -82,7 +97,7 @@ function createGcode1(n_points,numpoints1, initialheight, layerheight, numlayers
 		
 	  } //end of layer for
   gcode=gcode+";Release pressure\n";
-  var lastE= e[(n_points*numlayers)]-ExtValueReleasePressure;
+  var lastE= e[p_counter-1]-ExtValueReleasePressure;
   gcode=gcode+"G1 E"+lastE.toFixed(6)+" F200\n";
     gcode=gcode+";Set up the feedrate\n";
   gcode=gcode+"G1 F"+feedrate+"\n";
@@ -392,10 +407,12 @@ function myprocess(processing) {
 		*/
 		function canvasframe1() {
 			/*hidding and showing divs of html*/
-			document.getElementById("content1").style.display = "block";
-			document.getElementById("buttongcode").style.display = "none";
-			document.getElementById("footer").style.display = "none";
-			document.getElementById("lastfooter").style.display = "block";
+			document.getElementById("content1").style.display = "block"; //show birthday form
+			document.getElementById("buttongcode").style.display = "none"; //don't show button gcode
+			document.getElementById("div_settingbutton").style.display = "block"; //show setting button
+			document.getElementById("footer").style.display = "none"; //don't show textarea
+			
+			
 			/*drawing images on frame1*/
 			processing.image (imgbackground1, 0, 0); 
 			processing.image (imgtext1, 0, 0); 
@@ -408,13 +425,16 @@ function myprocess(processing) {
 		*/
 		function canvasframe2(day,month,year) {
 			/*hidding and showing divs of html*/
-			document.getElementById("content1").style.display = "none";
-			document.getElementById("buttongcode").style.display = "block";
-			document.getElementById("footer").style.display = "block";
-			document.getElementById("lastfooter").style.display = "none";
+			document.getElementById("content1").style.display = "none"; //don't show birthday form
+			document.getElementById("buttongcode").style.display = "block"; //show button gcode	
+			document.getElementById("div_settingbutton").style.display = "none"; //don't show setting button	
+			document.getElementById("lastfooter").style.display = "none"; //don't show settings form
+			document.getElementById("footer").style.display = "block"; //show textarea
+			
 			/*drawing images on frame2*/
 			processing.image (imgbackground2, 0, 0); 
-			processing.image (imgtext4, 0, 0);			
+			processing.image (imgtext4, 0, 0);	
+			/*drawAxis();	*/
 			
 			/*show variables from birthday date*/
 			processing.fill(255,0,0);
@@ -422,7 +442,7 @@ function myprocess(processing) {
 			processing.textSize(20);
 			processing.text(day+"/"+month+"/"+year,15,25);	// background color RGB	
 						
-			/*obtain values from html form not available for users*/			
+			/*obtain values from html form of settings*/			
 			var v_iheight = parseFloat(document.getElementById("id_iheight").value);
 			var v_layerheight = parseFloat(document.getElementById("id_layerheight").value);
 			var v_numlayers = parseInt(document.getElementById("id_numlayers").value);
@@ -436,11 +456,14 @@ function myprocess(processing) {
 			totalpoints=0;
 			var gcode="";  //initializing variable string	
 			
-			var n_selected = parseInt(processing.random(1,5)); //RANDOM SHAPE 1						
+			/*var n_selected = parseInt(processing.random(1,6.499)); //RANDOM SHAPE 1	*/
+			var n_selected = parseInt((Math.random() * (5.999 - 1) + 1)); //RANDOM SHAPE 1 GENERATE A ENTER NUMBER OF RANGE (1-5)			
 			/*1-2 random parameters rectangle and ellipse*/
 			var v_width = parseInt(processing.random(500,600)); 
 			var v_height = parseInt(processing.random(500,600));
-			/*3 random parameters star*/
+			/*n_selected = 1; v_width=600; v_height=600;*/
+			
+			/*3 random parameters star*/			
 			var star_radius1 = parseInt(processing.random(250,275));
 			var star_radius2 = parseInt(processing.random(300,310));			
 			var v_pointsstar = parseInt(processing.random(18,35));
@@ -506,11 +529,17 @@ function myprocess(processing) {
 				break;					
 		}// END OF SWITCH 1 FIRST SHAPE*********************************************************************************************************************************************
 			totalpoints=totalpoints+numpoints1;
+			// Returns a random number between min (inclusive) and max (exclusive)
+function getRandomArbitrary(min, max) {
+  return Math.random() * (max - min) + min;
+}
 		
-			var n_selected = parseInt(processing.random(1,7)); //RANDOM SHAPE 2
+			var n_selected = parseInt((Math.random() * (7.999 - 1) + 1)); //RANDOM SHAPE 2 GENERATE A ENTER NUMBER OF RANGE (1-7)	
 			/*1-2-3 random parameters rectangle triangle and ellipse*/
 			var v_width = parseInt(processing.random(200,400)); 
-			var v_height = parseInt(processing.random(200,400));			
+			var v_height = parseInt(processing.random(200,400));
+			/*n_selected = 1; v_width=300; v_height=300;*/
+			
 			/*4 random parameters star*/
 			var star_radius1 = parseInt(processing.random(100,150));
 			var star_radius2 = parseInt(processing.random(180,200));			
@@ -619,7 +648,7 @@ function myprocess(processing) {
 		*following block is to change frames
 		*/
 		if (counter_clics%2!=0){
-		frame=2;		
+		frame=2;
 		}  else	  {	
 		frame=1;
 		}  		  
