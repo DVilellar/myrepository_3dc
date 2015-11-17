@@ -3,10 +3,9 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<meta name="author" content="David Vilella Riera">
-		<meta name="description" content="Squares, triangle, circle and stars for 3DFP">
+		<meta name="description" content="2 Random Shapes,birthday date">
 		<title>birthday date</title>
 		<script type="text/javascript" src="js/processing.min.js"></script>
-		<!--<script type="text/javascript" src="js/savetextasfile.js"></script>-->
 		<script type="text/javascript" src="js/savetextasfile1.js"></script>		
 		<link href="style.css" rel="stylesheet" type="text/css">
 		<script type="text/javascript" >
@@ -18,10 +17,8 @@
 		<div id="header"> <!--Header -->
 				<h2 class="leftd">Developped by: David Vilella Riera</h2>	
 				<h2 class="leftd">For: <a href="http://www.3digitalcooks.com" target="_blank">3digitalcooks.com</a></h2>			
-		</div>
-		
-		<div id="maincontent"><!--main content-->
-			
+		</div>		
+		<div id="maincontent"><!--main content-->			
 			<div id="content1" class="positioncontent1"><!--content1 content-->
 				<form id="form0">						
 						<label for="id_day">Day</label>						
@@ -75,23 +72,18 @@
 						</select>	
 						<label for="id_year">Year</label>
 						<input type="text" id="id_year" value="1969" size="3" maxlength="4" class="selectinput">
-					</form>	
-				
-			</div>					
-			
+					</form>					
+			</div>				
 			<div id="content2"> <!--content2 content-->			
 				<canvas id="micanvas" width="300" height="300"></canvas>				
-			</div>	
-						
+			</div>							
 			<div id="footer"> <!--footer content-->				
 				<p><strong>Considering that printer 2D limits of printer are 100mmx100mm gcode is:</strong></p>
 				<textarea id="gcode" placeholder="Write here your text.">gcode</textarea> <!--textarea for gcode generated on basicshapes.pde-->
-			</div>
-			
+			</div>			
 			<div id="div_settingbutton"> <!--div_settingbutton cotent-->					
 				<button id="settingbutton" onclick="counterclics=showdivsettingbutton(counterclics);">Settings</button>
-			</div>
-			
+			</div>			
 			<div id="lastfooter"> <!--last footer content-->					
 				<form id="form1">							
 					<fieldset>
@@ -101,7 +93,7 @@
 							<label for="id_layerheight">Layer height(mm)</label>
 							<input type="text" id="id_layerheight" value="1" size="3"><br>
 							<label for="id_numlayers">number of layers</label>
-							<input type="text" id="id_numlayers" value="1" size="3"><br>					
+							<input type="text" id="id_numlayers" value="3" size="3"><br>					
 					</fieldset>	
 					
 					<fieldset>
@@ -118,14 +110,12 @@
 							<input type="text" id="id_ExtValueReleasePressure" value="2" size="6"><br>
 					</fieldset>			
 				</form>	
-			</div>
-			
+			</div>			
 			<div id="buttongcode">
 					<input type="text" value="filename" id="textFilename" class="selectinput" size="8" maxlength="8">.gcode </input>
 					<button id="button2" onclick="saveTextAsFile1()">Save Gcode</button>
-			</div>	
-			
+			</div>				
 		</div>				
 	</body>
-	<script type="text/javascript" src="js/basicshapes.js"></script>			
+	<script type="text/javascript" src="js/random2shapes.js"></script>			
 </html>
