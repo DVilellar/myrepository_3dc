@@ -1,0 +1,143 @@
+	html{
+	background:#c6c6c6;
+	}
+	*{margin: 0;
+	padding: 0;}
+	
+	body {
+	margin: 0 auto;
+	font-family: 'Inconsolata';
+	font-size: 16px;
+	text-align: center;
+	}
+	.nondisplay{
+	display: none;
+	}
+	
+	#container{
+	width: 960px;
+	}
+	#header{  
+	font: normal normal normal 8px/1.7 verdana,sans-serif;
+	height:201px;	
+	color:white;
+	background-image: url(data/header_background_02.png);
+	text-align: left;	
+	}
+	
+	#maincontent{ 
+	font: normal normal normal 22px/1.7 verdana,sans-serif;  
+	width:100%;
+	}
+	.positioncontent1 {
+    padding-left:150px;
+	}
+
+	.leftd {
+    font-family: Inconsolata;
+	font-size: 15px;
+	line-height: 13px;
+	position: relative;
+	left: 45%;
+	top:70px;	
+	}
+	a{
+	color:#8a051b;
+	}	
+	#content1{ 		
+	float:left;
+	color: #63030e;
+	font-family: 'Inconsolata';
+	font-size: 30px;
+	font-weight: bold;
+	}
+	#content2{ 
+	float:left;
+	border-style: none;
+	}
+	#footer{ 	
+	background:#f5f4e0;
+	float:left;
+	width:100%;	
+	}	
+	#div_settingbutton{
+	position: relative;
+	float:right;
+	top:-400px;
+	left:-200px;
+	}
+	#lastfooter{
+	position: relative;
+	float:right;
+	top:-400px;
+	left:-200px;
+	color: white;
+	text-align: left;
+	}
+	#form1_a{
+	float:right;
+	}
+	#form1_b{
+	float:right;
+	margin-right: 10px;
+	}
+	
+	
+	#content1 option{
+	font-family: 'Inconsolata';
+	font-size: 20px;
+	}
+	#content1  label{
+	font-family: 'Montserrat';
+	font-size: 24px;
+	color: white;
+	}
+	
+	#buttongcode
+	{
+	float:left;
+	font-family: 'Inconsolata';
+	color: grey;
+	font-weight: bold;
+	}
+	#form1{ 
+	font-family: 'Inconsolata';
+	}
+	.selectinput{ 
+	font-family: 'Inconsolata';
+	font-size: 24px;
+	color: grey;
+	height:50px;
+	}
+	.selectinput1{ 
+	font-family: 'Inconsolata';
+	font-size: 22px;
+	background: #c6c6c6;
+	color: #8a051b;
+	height:30px;
+	float:right;
+	}
+	legend{
+	font-family: 'Montserrat';
+	font-size: 24px;
+	color: #8a051b;
+	}
+
+	#button2{ 
+	font-family: 'Inconsolata';
+	font-size: 24px;
+	color: grey;
+	font-weight: bold;
+	}	
+
+	#gcode{
+	width:920px;
+	height:500px;
+	}
+	
+	#settingbutton{ 
+	font-family: 'Inconsolata';
+	font-size: 24px;
+	color: grey;
+	font-weight: bold;
+	}	
