@@ -1,28 +1,6 @@
 document.getElementById("footer").style.display = "none"; //don't show textarea
 document.getElementById("lastfooter").style.display = "none"; //don't show settings form
 document.getElementById("div_settingbutton").style.display = "block"; //show setting button
-
-/*
-*This function is called only from html file and is to print canvas element with the buttonprint
-*/
-function printCanvas()  
-{  
-    var dataUrl = document.getElementById('micanvas').toDataURL(); //attempt to save base64 string to server using this var  
-    var windowContent = '<!DOCTYPE html>';
-    windowContent += '<html>'
-    windowContent += '<head><title>Your design</title></head>';
-    windowContent += '<body>'
-    windowContent += '<img src="' + dataUrl + '">';
-    windowContent += '</body>';
-    windowContent += '</html>';
-    var printWin = window.open('','','width=970,height=710');
-    printWin.document.open();
-    printWin.document.write(windowContent);
-    printWin.document.close();
-    printWin.focus();
-    printWin.print();
-    printWin.close();
-}
 /*
 *This function is called only from html file (button settings)
 */
@@ -396,7 +374,6 @@ function myprocess(processing) {
 			/*hidding and showing divs of html*/
 			document.getElementById("content1").style.display = "block"; //show birthday form
 			document.getElementById("buttongcode").style.display = "none"; //don't show button gcode
-			document.getElementById("div_buttonprint").style.display = "none"; //don't show button print
 			document.getElementById("div_settingbutton").style.display = "block"; //show setting button
 			document.getElementById("footer").style.display = "none"; //don't show textarea
 			/*drawing background colour on frame 1 and button*/
@@ -412,7 +389,6 @@ function myprocess(processing) {
 			/*hidding and showing divs of html*/
 			document.getElementById("content1").style.display = "none"; //don't show birthday form
 			document.getElementById("buttongcode").style.display = "block"; //show button gcode	
-			document.getElementById("div_buttonprint").style.display = "block"; //show button print	
 			document.getElementById("div_settingbutton").style.display = "none"; //don't show setting button	
 			document.getElementById("lastfooter").style.display = "none"; //don't show settings form			
 			
