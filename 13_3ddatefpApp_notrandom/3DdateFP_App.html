@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="author" content="David Vilella Riera">
+		<meta name="description" content="3d FOOD PRINTING, SPECIAL DATES DESIGN">
+		<title>3DdateFoodPrinting</title>
+		<script type="text/javascript" src="js/processing.min.js"></script>
+		<script type="text/javascript" src="js/savetextasfile1.js"></script>	
+		<link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700|Montserrat+Alternates:700|Montserrat:700" rel="stylesheet" type="text/css">	
+		<link href="style.css" rel="stylesheet" type="text/css">
+		<script type="text/javascript" >
+			var counterclics=1;
+		</script>	
+	</head>	
+	
+	<body id="container">
+		<div id="header">
+				<h1 class="nondisplay">3D<br>date<br>FP</h1>
+				<h2 class="leftd">Developed by<br>David Vilella Riera<br>for<br><a href="http://www.3digitalcooks.com" target="_blank">3digitalcooks.com</a></h2>			
+		</div>	
+		<div id="maincontent"><!--main content-->			
+			<div id="content1" class="positioncontent1"><!--content1 content-->
+				<form id="form0">						
+						<label for="id_day">DAY</label>						
+						<select name="id_day" id="id_day" class="selectinput" >    
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+							<option value="6">6</option>
+							<option value="7">7</option>
+							<option value="8">8</option>
+							<option value="9">9</option>
+							<option value="10">10</option>
+							<option value="11">11</option>
+							<option value="12">12</option>
+							<option value="13">13</option>
+							<option value="14">14</option>
+							<option value="15">15</option>
+							<option value="16">16</option>
+							<option value="17">17</option>
+							<option value="18">18</option>
+							<option value="19">19</option>	
+							<option value="20">20</option>
+							<option value="21">21</option>
+							<option value="22">22</option>
+							<option value="23">23</option>
+							<option value="24">24</option>
+							<option value="25" selected>25</option>
+							<option value="26">26</option>
+							<option value="27">27</option>
+							<option value="28">28</option>
+							<option value="29">29</option>
+							<option value="30">30</option>
+							<option value="31">31</option>								
+						</select>							
+						<label for="id_month">MONTH</label>						
+						<select name="id_month" id="id_month" class="selectinput">    
+							<option value="1">January</option>
+							<option value="2">February</option>
+							<option value="3">March</option>
+							<option value="4">April</option>
+							<option value="5" >May</option>
+							<option value="6">June</option>
+							<option value="7">July</option>
+							<option value="8">August</option>
+							<option value="9">September</option>
+							<option value="10">October</option>
+							<option value="11" selected>November</option>
+							<option value="12">December</option>							
+						</select>	
+						<label for="id_year">YEAR</label>
+						<input type="text" id="id_year" value="1969" size="6" maxlength="4" class="selectinput">
+					</form>					
+			</div>				
+			<div id="content2"> <!--content2 content-->			
+				<canvas id="micanvas" width="960" height="700"></canvas>				
+			</div>							
+			<div id="footer"> <!--footer content-->				
+				<p><strong>Considering that printer 2D limits of printer are 100mmx100mm gcode is:</strong></p>
+				<textarea id="gcode" placeholder="Write here your text.">gcode</textarea> <!--textarea for gcode generated on basicshapes.pde-->
+			</div>			
+			<div id="div_settingbutton"> <!--div_settingbutton cotent-->					
+				<button id="settingbutton" onclick="counterclics=showdivsettingbutton(counterclics);">Settings</button>
+			</div>			
+			<div id="lastfooter"> <!--last footer content-->					
+				<form id="form1">							
+					<div id="form1_a">
+					<fieldset>
+						<legend>Design 2.5D parameters</legend>	
+							<label for="id_iheight">Initial layer height(mm)</label>
+							<input type="text" id="id_iheight" value="1.5" size="3" class="selectinput1"><br>
+							<label for="id_layerheight">Layer height(mm)</label>
+							<input type="text" id="id_layerheight" value="1" size="3" class="selectinput1"><br>
+							<label for="id_numlayers">number of layers</label>
+							<input type="text" id="id_numlayers" value="3" size="3" class="selectinput1"><br>					
+					</fieldset>	
+					</div>					
+					<div id="form1_b">
+					<fieldset>
+						<legend>Printer parameters</legend>
+							<label for="id_feedrate">Feedrate(mm/min)</label>
+							<input type="text" id="id_feedrate" value="3000" size="5" class="selectinput1"><br>
+							<label for="id_matdiameter">Material diameter(mm)</label>
+							<input type="text" id="id_matdiameter" value="15" size="5" class="selectinput1"><br>
+							<label for="id_nozzlediameter">Nozzle diameter(mm)</label>
+							<input type="text" id="id_nozzlediameter" value="1.5" size="5" class="selectinput1"><br>
+							<label for="id_ExtValueBuildUpPressure">Build up pressure:</label>
+							<input type="text" id="id_ExtValueBuildUpPressure" value="2.5" size="5" class="selectinput1"><br>
+							<label for="id_ExtValueReleasePressure">Release pressure:</label>
+							<input type="text" id="id_ExtValueReleasePressure" value="2" size="5" class="selectinput1"><br>
+					</fieldset>	
+					</div>	
+				</form>	
+			</div>			
+			<div id="buttongcode">
+					<input type="text" value="filename" id="textFilename" class="selectinput" size="9" maxlength="8">.gcode </input>
+					<button id="button2" onclick="saveTextAsFile1()">Save Gcode</button>
+			</div>
+			<div id="div_buttonprint">
+					<button id="buttonprint" onclick="printCanvas()">Print design</button>
+			</div>	
+		</div>				
+	</body>
+	<script type="text/javascript" src="js/dateshapes.js"></script>			
+</html>
