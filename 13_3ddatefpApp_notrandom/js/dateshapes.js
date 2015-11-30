@@ -42,9 +42,79 @@ function point (pcoord_x,pcoord_y){
 *This function is to create the string called gcode following G-code language
 */
 function createGcode(pointshapeone,numpoints1,e1,pointshapetwo,numpoints2,e2,initialheight,layerheight,numlayers,feedrate,ExtValueBuildUpPressure,ExtValueReleasePressure){
- var gcode="; Missing gcode generated from dateshapes.js\n";
+ var gcode=";gcode generated from dateshapes.js\n";
+ var actual_z=0;
+  gcode=gcode+";developped by: David Vilella Riera\n";
+  gcode=gcode+";THE CODE:\n";
+  gcode=gcode+";Homing all axis\n";
+  gcode=gcode+"G28\n";
+  gcode=gcode+"; Set units to milimeters\n";
+  gcode=gcode+"G21\n";
+  gcode=gcode+"; Set absolute coordinates\n";
+  gcode=gcode+"G90\n";
+  gcode=gcode+";Reset extruder value\n";
+  gcode=gcode+"G92 E0\n";
+  gcode=gcode+";Move to the first point of shape 1\n";
+  var p_counter=0;
+  actual_z=actual_z+initialheight;
+  gcode=gcode+"G1 X"+pointshapeone[p_counter].x.toFixed(4)+" Y"+pointshapeone[p_counter].y.toFixed(4)+" Z"+actual_z+" F"+feedrate+"\n";
+  gcode=gcode+";Build up pressure\n";
+  gcode=gcode+"G1 E"+ExtValueBuildUpPressure+" F200\n";
+  gcode=gcode+"G92 E0\n";
+  gcode=gcode+"G1 F"+feedrate+"\n";
+  var actual_ext=0;
+    for (var layer_counter=1; layer_counter <= numlayers; layer_counter = layer_counter+1){
+		var numbershape=1;
+		
+		gcode=gcode+";Moving to the layer number "+(layer_counter)+"\n";
+		if (layer_counter > 1) {
+		actual_z=actual_z+layerheight;
+		
+		}
+		gcode=gcode+"G1 Z"+actual_z+"\n";
+		if (layer_counter > 1){
+		gcode=gcode+";Move to the first point ...................................\n";
+		gcode=gcode+"G1 X"+pointshapeone[0].x.toFixed(4)+" Y"+pointshapeone[0].y.toFixed(4)+" E"+actual_ext.toFixed(6)+"\n";
+		}	
+		
+		//1st shape
+		for ( p_counter = 1; p_counter < numpoints1; p_counter = p_counter+1) {
+			actual_ext=actual_ext+e1[p_counter-1];
+			gcode=gcode+";Move to the point "+(p_counter+1)+" of shape "+numbershape+"\n";
+			gcode=gcode+"G1 X"+pointshapeone[p_counter].x.toFixed(4)+" Y"+pointshapeone[p_counter].y.toFixed(4)+" E"+actual_ext.toFixed(6)+"\n"; 
+		}	
+			actual_ext=actual_ext+e1[numpoints1-1];
+			gcode=gcode+";to close shape "+numbershape+" we need to go back to the first point\n";
+			gcode=gcode+"G1 X"+pointshapeone[0].x.toFixed(4)+" Y"+pointshapeone[0].y.toFixed(4)+" E"+actual_ext.toFixed(6)+"\n"; 
+		
+		//2nd shape
+		numbershape=numbershape+1; 
+		for ( p_counter = 0; p_counter < numpoints2; p_counter = p_counter+1) {
+			if(p_counter>0){
+			actual_ext=actual_ext+e2[p_counter];
+			}
+			else
+			{
+			actual_ext=actual_ext
+			}			
+			gcode=gcode+";Move to the point "+(p_counter+1)+" of shape "+numbershape+"\n";
+			gcode=gcode+"G1 X"+pointshapetwo[p_counter].x.toFixed(4)+" Y"+pointshapetwo[p_counter].y.toFixed(4)+" E"+actual_ext.toFixed(6)+"\n"; 			
+		}	
+			actual_ext=actual_ext+e2[numpoints2-1]	
+			gcode=gcode+";to close shape "+numbershape+" we need to go back to the first point\n";
+			gcode=gcode+"G1 X"+pointshapetwo[0].x.toFixed(4)+" Y"+pointshapetwo[0].y.toFixed(4)+" E"+actual_ext.toFixed(6)+"\n"; 	
+	  } //end of layer for
+	gcode=gcode+";Release pressure\n";
+	actual_ext=actual_ext-ExtValueReleasePressure;
+	gcode=gcode+"G1 E"+actual_ext.toFixed(6)+" F200\n";
+    gcode=gcode+";Set up the feedrate\n";
+	gcode=gcode+"G1 F"+feedrate+"\n";
+	gcode=gcode+";Homing all axis\n";
+	gcode=gcode+"G28\n";  
+	gcode=gcode+";Disable motors command\n";
+	gcode=gcode+"M84";  
  return gcode;
-} 
+}
 /*
 *This function is to create the string called orderedpoints
 */
@@ -170,7 +240,7 @@ function myprocess(processing) {
 		var sizescreeny = 700;
 		processing.size(sizescreenx,sizescreeny);  //screen size
 		processing.frameRate(15);  //frames per second that function draw will run					
-		buttonclickhere = processing.loadImage ("data/buttonclickhere.png");	
+		buttonclickhere = processing.loadImage ("data/buttonclickhere.png");		
 	}	
 	/*
 	*The draw() function is executed it depends of de frameRate on setup function
@@ -376,10 +446,10 @@ function myprocess(processing) {
 			document.getElementById("buttongcode").style.display = "none"; //don't show button gcode
 			document.getElementById("div_settingbutton").style.display = "block"; //show setting button
 			document.getElementById("footer").style.display = "none"; //don't show textarea
-			/*drawing background colour on frame 1 and button*/
+			/*drawing background colour on frame 1*/
 			processing.background(198,198,198);
 			processing.image (buttonclickhere, 0, 0); 
-				
+			/*processing.image (imgtext3, 0, 0); */		
 			update1(processing.mouseX, processing.mouseY); //to simulate that you are over "click here" button  		
 		}			
 		/*
@@ -394,13 +464,15 @@ function myprocess(processing) {
 			
 			/*drawing background colour on frame 2*/
 			processing.background(198,198,198);
-									
+						
 			/*show variables from birthday date*/
 			processing.fill(138,5,27);
 			processing.textAlign(processing.LEFT);
 			processing.textSize(20);
 			processing.text(day+"/"+month+"/"+year,15,25);	// background color RGB	
-									
+			processing.textSize(12);
+			
+			
 			/*obtain values from html form of settings*/			
 			var v_iheight = parseFloat(document.getElementById("id_iheight").value);
 			var v_layerheight = parseFloat(document.getElementById("id_layerheight").value);
@@ -411,9 +483,9 @@ function myprocess(processing) {
 			var v_ExtValueBuildUpPressure = parseFloat(document.getElementById("id_ExtValueBuildUpPressure").value);
 			var v_ExtValueReleasePressure = parseFloat(document.getElementById("id_ExtValueReleasePressure").value);						
 						
-			/*-----------------------------------------------------------BEGIN DESIGN---------------------------------------------------------------*/
+			/*-----------------------------------------------------------BEGIN RANDOM DESIGN---------------------------------------------------------------*/
 			totalpoints=0;
-						
+			
 			/*Selection of shape 1 (outside) from month*/
 			switch(month) {
 				case 1: var n_selected1=3; break;
@@ -428,9 +500,8 @@ function myprocess(processing) {
 				case 10: var n_selected1=2; break;
 				case 11: var n_selected1=3; break;
 				case 12: var n_selected1=4; break;
-			}			
+			}
 			
-			/*PARAMETERS OF SHAPE 1 (outside)********************************************************************/
 			/* to obtain the addition of year digits */
 			processing.textSize(12);
 			var stringyear = year.toString(); 
@@ -441,18 +512,19 @@ function myprocess(processing) {
 			var g=parseInt(numbers[i]);
 			sumdigitnumbers=sumdigitnumbers+g;
 			}
-			//processing.text("suma digits="+sumdigitnumbers,15,45);
-			/* end of obtain the addition of year digits */
+			/* end of obtain the addition of year digits */	
 			
-			/*parameters v_width and v_height for rectangles and elipses*/
-			var v_width = 550; 
+			/*parameters v_width and v_height for rectangles and elipses of shape 1 (outside)*/
+			var v_width = parseInt(550); 
 			if (sumdigitnumbers%2==0)
-			{ var v_height=v_width;}
+			{ var v_height=parseInt(v_width);}
 			else
-			{ var v_height=0.9*v_width;}	
+			{ var v_height=parseInt(0.9*v_width);}	
+			/*end parameters v_width and v_height for rectangles and elipses of shape 1 (outside)*/
 			
-			/*parameters for flowers*/
-			var flower_radius1 = 262;			
+			/*parameters for flowers of shape 1 (outside)*/
+			var flower_radius1 = 262;
+			var v_npetalsflower;	
 			if (sumdigitnumbers==1) {v_npetalsflower=5;}
 			if (sumdigitnumbers==2) {v_npetalsflower=36;}
 			if (sumdigitnumbers==3) {v_npetalsflower=9;}
@@ -488,18 +560,27 @@ function myprocess(processing) {
 			if (sumdigitnumbers==33) {v_npetalsflower=15;}
 			if (sumdigitnumbers==34) {v_npetalsflower=21;}
 			if (sumdigitnumbers==35) {v_npetalsflower=24;}
-			if (sumdigitnumbers==36) {v_npetalsflower=12;}			
-						
-			/*parameters for rounded stars*/
+			if (sumdigitnumbers==36) {v_npetalsflower=12;}
+			/*end parameters for flowers of shape 1 (outside)*/
+			
+			/*parameters for rounded stars of shape 1 (outside)*/
 			var roundedstar_radius1 = 275;
-			var v_ncurvesroundedstar=v_npetalsflower;
-					
-			/*parameters for stars*/	
-			var star_radius1 = 262;
-			var star_radius2 = 305;			
-			var v_pointsstar = v_npetalsflower;	
-			/*END OF PARAMETERS OF SHAPE 1********************************************************************/
-
+			var v_ncurvesroundedstar
+			var v_ncurvesroundedstar=v_npetalsflower;	
+			/*end of parameters for rounded stars of shape 1 (outside)*/
+			
+			/*parameters for stars of shape 1 (outside)*/
+			var star_radius1_shapeone = parseInt(processing.random(260,260));
+			var star_radius2_shapeone = parseInt(processing.random(304,304));			
+			if (sumdigitnumbers>18){
+			var v_pointsstar_shapeone = parseInt(processing.random(sumdigitnumbers,sumdigitnumbers));	
+			}
+			else 
+			{
+			var v_pointsstar_shapeone = parseInt(processing.random(25,25));
+			}			
+			/*end parameters for stars of shape 1 (outside)*/
+			
 			processing.noFill(); // no fill shapes
 			processing.strokeWeight(3);  // Thicker
 			processing.stroke(138,5,27);   // stroke color RGB 
@@ -515,9 +596,9 @@ function myprocess(processing) {
 					pointshape1=drawellipse(numpoints1,v_width,v_height);												
 				break;				
 				case 3: /*STAR*/					
-					numpoints1=v_pointsstar*2; //number of points of star
+					numpoints1=v_pointsstar_shapeone*2; //number of points of star
 					var pointshape1 = new Array;		//array of points
-					pointshape1=drawstar(star_radius1, star_radius2,v_pointsstar);					
+					pointshape1=drawstar(star_radius1_shapeone, star_radius2_shapeone,v_pointsstar_shapeone);					
 				break;				
 				case 4: /*FLOWER*/
 					numpoints1=360; //number of points of flower
@@ -531,97 +612,89 @@ function myprocess(processing) {
 				break;					
 		}// END OF SWITCH 1 FIRST SHAPE*********************************************************************************************************************************************
 			totalpoints=totalpoints+numpoints1;
-			
+			var n_selected2;
 			/*Selection of shape 2 (inside) from day*/
 			switch(day) {
-				case 1: var n_selected2=4; break;
-				case 2: var n_selected2=5; break;
-				case 3: var n_selected2=6; break;
-				case 4: var n_selected2=7; break;
+				case 1: n_selected2=4; break;
+				case 2: n_selected2=5; break;
+				case 3: n_selected2=6; break;
+				case 4: n_selected2=7; break;
 				case 5: 
-					var n_selected2=1; 
+					n_selected2=1; 
 					if (n_selected2==n_selected1) {n_selected2=4;}	 //to avoid 2 squares as shapes			
 				break;
-				case 6: var n_selected2=2; break;
+				case 6: n_selected2=2; break;
 				case 7: 
-					var n_selected2=3; 
+					n_selected2=3; 
 					if (n_selected1==2) {n_selected2=4;}	 //to avoid 2 ellipses as shapes	
 				break;
-				case 8: var n_selected2=4; break;
-				case 9: var n_selected2=5; break;
-				case 10: var n_selected2=6; break;
-				case 11: var n_selected2=7; break;
+				case 8: n_selected2=4; break;
+				case 9: n_selected2=5; break;
+				case 10: n_selected2=6; break;
+				case 11: n_selected2=7; break;
 				case 12:
-					var n_selected2=1;
+					n_selected2=1;
 					if (n_selected2==n_selected1) {n_selected2=5;} //to avoid 2 squares as shapes		
 				break;
-				case 13: var n_selected2=2; break;
+				case 13: n_selected2=2; break;
 				case 14: 
-					var n_selected2=3; 
+					n_selected2=3; 
 					if (n_selected1==2) {n_selected2=5;}	 //to avoid 2 ellipses as shapes
 				break;
-				case 15: var n_selected2=4; break;
-				case 16: var n_selected2=5; break;
-				case 17: var n_selected2=6; break;
-				case 18: var n_selected2=7; break;
+				case 15: n_selected2=4; break;
+				case 16: n_selected2=5; break;
+				case 17: n_selected2=6; break;
+				case 18: n_selected2=7; break;
 				case 19: 
-					var n_selected2=1;
+					n_selected2=1;
 					if (n_selected2==n_selected1) {n_selected2=6;} //to avoid 2 squares as shapes						
 				break;
-				case 20: var n_selected2=2; break;
+				case 20: n_selected2=2; break;
 				case 21: 
-					var n_selected2=3; 
+					n_selected2=3; 
 					if (n_selected1==2) {n_selected2=6;}	 //to avoid 2 ellipses as shapes
 				break;
-				case 22: var n_selected2=4; break;
-				case 23: var n_selected2=5; break;
-				case 24: var n_selected2=6; break;
-				case 25: var n_selected2=7; break;
+				case 22: n_selected2=4; break;
+				case 23: n_selected2=5; break;
+				case 24: n_selected2=6; break;
+				case 25: n_selected2=7; break;
 				case 26:
-					var n_selected2=1; 
+					n_selected2=1; 
 					if (n_selected2==n_selected1) {n_selected2=7;} //to avoid 2 squares as shapes	
 				break;
-				case 27: var n_selected2=2; break;
+				case 27: n_selected2=2; break;
 				case 28:
-					var n_selected2=3; 
+					n_selected2=3; 
 					if (n_selected1==2) {n_selected2=7;}	 //to avoid 2 ellipses as shapes
 				break;
-				case 29: var n_selected2=4; break;
-				case 30: var n_selected2=5; break;
-				case 31: var n_selected2=6; break;
-			}			
+				case 29: n_selected2=4; break;
+				case 30: n_selected2=5; break;
+				case 31: n_selected2=6; break;
+			}
 			
 			/*PARAMETERS OF SHAPE 2 (inside)********************************************************************/			
-			/*parameters v_width and v_height for rectangles triangles and elipses*/
-			var v_width = 350; 
+			/*parameters v_width and v_height for rectangles triangles and elipses of shape 2 (inside)*/
+			var v_width = parseInt(350); 
 			if (numbers[3]%2==0)
-			{ var v_height=v_width;}
+			{ var v_height=parseInt(v_width);}
 			else
-			{ var v_height=0.9*v_width;}
-					
-			/*parameters for star*/
-			var star_radius1=125;
-			var star_radius2=190;				
-			if (numbers[3]==0) { v_pointsstar2=3;}
-			if (numbers[3]==1) { v_pointsstar2=4;}
-			if (numbers[3]==2) { v_pointsstar2=5;}
-			if (numbers[3]==3) { v_pointsstar2=6;}
-			if (numbers[3]==4) { v_pointsstar2=7;}
-			if (numbers[3]==5) { v_pointsstar2=8;}
-			if (numbers[3]==6) { v_pointsstar2=9;}
-			if (numbers[3]==7) { v_pointsstar2=10;}
-			if (numbers[3]==8) { v_pointsstar2=11;}
-			if (numbers[3]==9) { v_pointsstar2=12;}
-						
-			/*parameters for flower*/			
+			{ var v_height=parseInt(0.9*v_width);}
+			/*end of parameters v_width and v_height for rectangles triangles and elipses*/
+			
+			/*parameters for star of shape 2 (inside)*/
+			var star_radius1 = parseInt(processing.random(125,125));
+			var star_radius2 = parseInt(processing.random(190,190));				
+			var v_pointsstar2 = parseInt(processing.random(8,9));
+			
+			/*parameters for flower of shape 2 (inside)*/			
 			var flower_radius1 = 180;
 			if (sumdigitnumbers==1) {var v_npetalsflower2 = 6;}
 			if (sumdigitnumbers==2) {var v_npetalsflower2 = 7;}
 			if (sumdigitnumbers==3) {var v_npetalsflower2 = 8;}
 			if (sumdigitnumbers==4) {var v_npetalsflower2 = 9;}	
-			if (sumdigitnumbers>=5) {var v_npetalsflower2 = sumdigitnumbers;}			
-			
-			/*parameters for roundedstar*/
+			if (sumdigitnumbers>=5) {var v_npetalsflower2 = sumdigitnumbers;}	
+		
+			/*parameters for roundedstar of shape 2 (inside)*/
 			var roundedstar_radius1 = 175;			
 			if (sumdigitnumbers<=5) {var v_ncurvesroundedstar2=6;}
 			if (sumdigitnumbers>=6 & sumdigitnumbers<=10 ) {var v_ncurvesroundedstar2=7;}
@@ -631,12 +704,12 @@ function myprocess(processing) {
 			if (sumdigitnumbers>=26 & sumdigitnumbers<=30 ) {var v_ncurvesroundedstar2=11;}
 			if (sumdigitnumbers>=31 & sumdigitnumbers<=36 ) {var v_ncurvesroundedstar2=12;}
 			
-			/*parameters for heart*/
+			/*parameters for heart of shape 2 (inside)*/
 			if (numbers[0]%2==0 & numbers[2]%2==0) { var v_sizeheart2=10 }
 			if (numbers[0]%2==0 & numbers[2]%2!=0) { var v_sizeheart2=11 }
 			if (numbers[0]%2!=0 & numbers[2]%2==0) { var v_sizeheart2=13 }
 			if (numbers[0]%2!=0 & numbers[2]%2!=0) { var v_sizeheart2=15 }
-			/*END OF PARAMETERS OF SHAPE 2 (inside)********************************************************************/	
+			
 			
 			processing.noFill(); // no fill shapes
 			processing.strokeWeight(3);  // Thicker
@@ -658,19 +731,19 @@ function myprocess(processing) {
 					pointshape2=drawellipse(numpoints2,v_width,v_height);					
 				break;				
 				case 4: /*STAR*/
-					numpoints2=v_pointsstar2*2; //number of points of star
+					numpoints2=parseInt(v_pointsstar2*2); //number of points of star
 					var pointshape2 = new Array;		//array of points
 					pointshape2=drawstar(star_radius1, star_radius2,v_pointsstar2);					
 				break;				
 				case 5: /*FLOWER*/
 					numpoints2=360; //number of points of flower
 					var pointshape2 = new Array;		//array of points
-					pointshape2=drawflower(numpoints2,flower_radius1,v_npetalsflower2);										
+					pointshape2=drawflower(numpoints2,flower_radius1,v_npetalsflower);										
 				break;					
 				case 6: /*ROUNDED STAR*/
 					numpoints2=360; //number of points of rounded star
 					var pointshape2 = new Array;		//array of points
-					pointshape2=drawroundedstar(numpoints2,roundedstar_radius1,v_ncurvesroundedstar2);					
+					pointshape2=drawroundedstar(numpoints2,roundedstar_radius1,v_ncurvesroundedstar);					
 				break;				
 				case 7: /*HEART*/
 					numpoints2=360; //number of points of heart
@@ -684,8 +757,9 @@ function myprocess(processing) {
 				
 				processing.fill(0,0,0);				
 				totalpointshape=scalePointsToMaxDimension(totalpoints,totalpointshape); //SCALING POINTS TO MAX DIMENSION
-				var pointshapeone = totalpointshape.slice(0, numpoints1); 
-				var pointshapetwo = totalpointshape.slice(numpoints1, totalpoints+1);
+				
+				var pointshapeone = totalpointshape.slice(0, numpoints1); 				//obtaining points of shape one scaled
+				var pointshapetwo = totalpointshape.slice(numpoints1, totalpoints+1); 	//obtaining points of shape two scaled
 												
 				var d1=createdistancesarray(numpoints1,pointshapeone); //CREATING ARRAY d1 OF DISTANCES BETWEEN POINTS OF SHAPE 1
 				var d2=createdistancesarray(numpoints2,pointshapetwo); //CREATING ARRAY d2 OF DISTANCES BETWEEN POINTS OF SHAPE 2
