@@ -9,6 +9,7 @@
 	font-family: 'Inconsolata';
 	font-size: 16px;
 	text-align: center;
+	overflow:hidden;
 	}
 	.nondisplay{
 	display: none;
