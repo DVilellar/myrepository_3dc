@@ -1,0 +1,367 @@
+@font-face {
+    font-family: 'BebasNeueRegular';
+    src: url('fonts/BebasNeue-webfont.eot');
+    src: url('fonts/BebasNeue-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/BebasNeue-webfont.woff') format('woff'),
+         url('fonts/BebasNeue-webfont.ttf') format('truetype'),
+         url('fonts/BebasNeue-webfont.svg#BebasNeueRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* CSS RESET */
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td { 
+	margin:0;
+	padding:0;
+}
+html,body {
+	margin:0;
+	padding:0;
+}
+table {
+	border-collapse:collapse;
+	border-spacing:0;
+}
+fieldset,img { 
+	border:0;
+}
+address,caption,cite,code,dfn,th,var {
+	font-style:normal;
+	font-weight:normal;
+}
+ol,ul {
+	list-style:none;
+}
+caption,th {
+	text-align:left;
+}
+h1,h2,h3,h4,h5,h6 {
+	font-size:100%;
+	font-weight:normal;
+}
+q:before,q:after {
+	content:'';
+}
+abbr,acronym { border:0;
+}
+section, header{
+	display: block;
+}
+
+/* GENERAL STYLE*/
+body{
+	font-family: Cambria, Palatino, "Palatino Linotype", "Palatino LT STD", Georgia, serif;
+	background: #e0e3ec url(images/bgnoise_lg.jpg) repeat top left;
+	font-weight: 400;
+	font-size: 15px;
+	color: #393b40;
+	overflow-y: scroll;
+}
+a{
+	color: #333;
+	text-decoration: none;
+}
+.container{
+	width: 100%;
+	position: relative;
+	text-align: center;
+}
+.container > header{
+	padding: 20px 30px 10px 30px;
+	margin: 0px 20px 10px 20px;
+	position: relative;
+	display: block;
+	text-shadow: 1px 1px 1px rgba(0,0,0,0.2);
+    text-align: center;
+}
+.container > header h1{
+	font-family: 'BebasNeueRegular', 'Arial Narrow', Arial, sans-serif;
+	font-size: 35px;
+	line-height: 35px;
+	position: relative;
+	font-weight: 400;
+	color: #3d7489;
+	text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
+    padding: 0px 0px 5px 0px;
+}
+.container > header h1 span{
+	color: #80B8CE;
+	text-shadow: 0px 1px 1px rgba(255,255,255,0.8);
+}
+.container > header h2{
+	font-size: 16px;
+	font-style: italic;
+	color: #82858e;
+	text-shadow: 0px 1px 1px rgba(255,255,255,0.8);
+}
+
+/*STYLE FOR ACCORDION SECTION*/
+.ac-container{
+	width:700px;
+	margin: 10px auto 30px auto;
+	text-align: left;
+}
+.ac-container label{
+	font-family: 'BebasNeueRegular', 'Arial Narrow', Arial, sans-serif;
+	padding: 5px 20px;
+	position: relative;
+	z-index: 20;
+	display: block;	
+	height: 30px;
+	cursor: pointer;
+	color: #777;
+	text-shadow: 1px 1px 1px rgba(255,255,255,0.8);
+	line-height: 33px;
+	font-size: 19px;
+	background: #ffffff;
+	background: -moz-linear-gradient(top, #ffffff 1%, #eaeaea 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,#ffffff), color-stop(100%,#eaeaea));
+	background: -webkit-linear-gradient(top, #ffffff 1%,#eaeaea 100%);
+	background: -o-linear-gradient(top, #ffffff 1%,#eaeaea 100%);
+	background: -ms-linear-gradient(top, #ffffff 1%,#eaeaea 100%);
+	background: linear-gradient(top, #ffffff 1%,#eaeaea 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#eaeaea',GradientType=0 );
+	box-shadow: 
+		0px 0px 0px 1px rgba(155,155,155,0.3), 
+		1px 0px 0px 0px rgba(255,255,255,0.9) inset, 
+		0px 2px 2px rgba(0,0,0,0.1);
+}
+.ac-container label:hover{
+	background: #fff;
+}
+.ac-container input:checked + label,
+.ac-container input:checked + label:hover{
+	background: #c6e1ec;
+	color: #3d7489;
+	text-shadow: 0px 1px 1px rgba(255,255,255, 0.6);
+	box-shadow: 
+		0px 0px 0px 1px rgba(155,155,155,0.3), 
+		0px 2px 2px rgba(0,0,0,0.1);
+}
+.ac-container label:hover:after,
+.ac-container input:checked + label:hover:after{
+	content: '';
+	position: absolute;
+	width: 24px;
+	height: 24px;
+	right: 13px;
+	top: 7px;
+	background: transparent url(images/arrow_down.png) no-repeat center center;	
+}
+.ac-container input:checked + label:hover:after{
+	background-image: url(images/arrow_up.png);
+}
+.ac-container input{
+	display: none;
+}
+.ac-container article{
+	text-align:justify;
+	background: rgba(255, 255, 255, 0.5);
+	margin-top: -1px;
+	overflow: hidden;
+	height: 0px;
+	position: relative;
+	z-index: 10;
+	-webkit-transition: height 0.3s ease-in-out, box-shadow 0.6s linear;
+	-moz-transition: height 0.3s ease-in-out, box-shadow 0.6s linear;
+	-o-transition: height 0.3s ease-in-out, box-shadow 0.6s linear;
+	-ms-transition: height 0.3s ease-in-out, box-shadow 0.6s linear;
+	transition: height 0.3s ease-in-out, box-shadow 0.6s linear;
+}
+.ac-container article p{
+	font-style: italic;
+	color: #777;
+	line-height: 23px;
+	font-size: 16px;
+	padding: 20px;
+	text-shadow: 1px 1px 1px rgba(255,255,255,0.8);
+}
+.ac-container article p strong{
+	color: #0c3037;
+}
+.ac-container input:checked ~ article{
+	-webkit-transition: height 0.5s ease-in-out, box-shadow 0.1s linear;
+	-moz-transition: height 0.5s ease-in-out, box-shadow 0.1s linear;
+	-o-transition: height 0.5s ease-in-out, box-shadow 0.1s linear;
+	-ms-transition: height 0.5s ease-in-out, box-shadow 0.1s linear;
+	transition: height 0.5s ease-in-out, box-shadow 0.1s linear;
+	box-shadow: 0px 0px 0px 1px rgba(155,155,155,0.3);
+}
+.ac-container input:checked ~ article.ac-small{
+	height: 140px;
+}
+.ac-container input:checked ~ article.ac-medium{
+	height: 180px;
+}
+.ac-container input:checked ~ article.ac-large{
+	height: 500px;
+}
+.spandark {
+color: #3d7489;
+font-weight: bold;
+}
+.spanlight {
+color: #80B8CE;
+font-weight: bold;
+}
+
+/*STYLE FOR DATE FORM*/
+#form0{
+font-family: 'BebasNeueRegular', 'Arial Narrow', Arial, sans-serif;
+font-size: 22px;
+color: grey;
+}
+#form0 label{
+color: #3d7489;
+font-weight: normal;
+text-shadow: 1px 1px 1px rgba(255,255,255,0.8);
+}
+#id_day{
+font-family: 'BebasNeueRegular', 'Arial Narrow', Arial, sans-serif;
+font-size: 22px;
+color: grey;
+}
+#id_month{
+font-family: 'BebasNeueRegular', 'Arial Narrow', Arial, sans-serif;
+font-size: 22px;
+color: grey;
+}
+#id_year{
+font-family: 'BebasNeueRegular', 'Arial Narrow', Arial, sans-serif;
+font-size: 22px;
+color: grey;
+}
+.selectinputdate{
+height:40px;
+}
+
+/*STYLE FOR BUTTONS*/
+#div_buttons{
+width:700px;
+margin: 0 auto;
+}
+button {
+	-moz-box-shadow: 3px 4px 0px 0px #899599;
+	-webkit-box-shadow: 3px 4px 0px 0px #899599;
+	box-shadow: 3px 4px 0px 0px #899599;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ededed), color-stop(1, #bab1ba));
+	background:-moz-linear-gradient(top, #ededed 5%, #bab1ba 100%);
+	background:-webkit-linear-gradient(top, #ededed 5%, #bab1ba 100%);
+	background:-o-linear-gradient(top, #ededed 5%, #bab1ba 100%);
+	background:-ms-linear-gradient(top, #ededed 5%, #bab1ba 100%);
+	background:linear-gradient(to bottom, #ededed 5%, #bab1ba 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#bab1ba',GradientType=0);
+	background-color:#ededed;
+	-moz-border-radius:15px;
+	-webkit-border-radius:15px;
+	border-radius:15px;
+	border:1px solid #d6bcd6;
+	display:inline-block;
+	cursor:pointer;
+	color:#3a8a9e;
+	font-family:Arial;
+	font-size:17px;
+	padding:2px 15px;
+	width:100px;
+	
+	text-decoration:none;
+	text-shadow:0px 1px 0px #e1e2ed;
+}
+button:hover {
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #bab1ba), color-stop(1, #ededed));
+	background:-moz-linear-gradient(top, #bab1ba 5%, #ededed 100%);
+	background:-webkit-linear-gradient(top, #bab1ba 5%, #ededed 100%);
+	background:-o-linear-gradient(top, #bab1ba 5%, #ededed 100%);
+	background:-ms-linear-gradient(top, #bab1ba 5%, #ededed 100%);
+	background:linear-gradient(to bottom, #bab1ba 5%, #ededed 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#bab1ba', endColorstr='#ededed',GradientType=0);
+	background-color:#bab1ba;	
+}
+button:active {
+	position:relative;
+	top:1px;
+}
+#buttonhome{ 
+font-family: 'BebasNeueRegular', 'Arial Narrow', Arial, sans-serif;
+font-size: 24px;
+color: grey;
+float:right;
+margin-right:12px;
+}
+#buttonhome:hover{
+color: #3d7489;
+}
+#buttongcodeb{ 
+font-family: 'BebasNeueRegular', 'Arial Narrow', Arial, sans-serif;
+font-size: 24px;
+color: grey;
+float:right;
+margin-right:12px;
+}
+#buttongcodeb:hover{
+color: #3d7489;
+}	
+#settingbutton{ 
+font-family: 'BebasNeueRegular', 'Arial Narrow', Arial, sans-serif;
+font-size: 24px;
+color: grey;
+float:right;
+margin-right:12px;
+}
+#settingbutton:hover{
+color: #3d7489;
+}	
+
+/*STYLE FOR PARAMETERS FORM*/
+#div_parametersform{
+width:300px;
+margin: 0 auto;
+}
+#form1_a{
+background:white;
+font-family: Cambria, Palatino, "Palatino Linotype", "Palatino LT STD", Georgia, serif;	
+float:right;
+line-height:22px;
+margin-top: 10px;
+margin-right: 10px;
+padding: 10px;
+border-radius: 9px 9px 9px 9px;
+-moz-border-radius: 9px 9px 9px 9px;
+-webkit-border-radius: 18px 18px 18px 18px;
+border-style: solid; 
+border-color: #3d7489;
+border-width:1px;
+}
+#form1_a legend{
+font-size: 18px;
+color: #3d7489;
+padding-top: 10px;
+}
+#form1_a label{
+float:left;
+}
+.selectinput1{ 
+font-family: Cambria, Palatino, "Palatino Linotype", "Palatino LT STD", Georgia, serif;
+font-size: 14px;
+color: #3d7489;
+height:18px;
+float:right;
+}
+
+/*STYLE FOR TEXTAREA ONLY FOR DEVELOPEMENT*/
+#gcode{
+font-family: Cambria, Palatino, "Palatino Linotype", "Palatino LT STD", Georgia, serif;
+font-size: 16px;
+color: black;
+width:900px;
+height: 600px;
+}	
+#div_textarea p{
+font-family: 'BebasNeueRegular', 'Arial Narrow', Arial, sans-serif;
+font-size: 24px;
+color: #3d7489;
+}
+	
+	
+	
+
