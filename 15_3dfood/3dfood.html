@@ -28,16 +28,16 @@
 					<input id="ac-1" name="accordion-1" type="checkbox" />
 					<label for="ac-1">WHAT DOES THIS APP DO?</label>
 					<article class="ac-large">
-							<p>	<strong>WHY?</strong>  Everybody remember the special dates in his mind: your birthday, your wedding, the day you knew your couple, the first 		kiss…and people want to celebrate them with special details. This is the main reason of <span class="spandark">3D FOOD</span><span class="spanlight"> for special dates</span>.<br>
-								<strong>WHAT?</strong>   The code of this App generate your personalized design from your special date and it’s available to download a Gcode file that 3D Printers of food understand . Personalized design is based on 2 shapes (inner and outsider).<br>
+							<p>	<strong>WHY?</strong> Everyone remembers the date of something special: birthday, anniversary, the day you met that someone special, the first kiss… people want to celebrate them with special details. This is the main reason for <span class="spandark">3D FOOD</span><span class="spanlight"> for special dates</span>.<br>
+								<strong>WHAT?</strong>   The code of this App generates a personalized design from your special date and let's you download a Gcode file that 3D food printers understand. The personalized design is based on 2 shapes (inner and outsider).<br>
 								<strong>HOW?</strong> There are 5 steps to run it:<br>
 								<span class="spandark">Step 1 – </span>Choose your special date.<br>
-								<span class="spandark">Step 2 – </span>Click button “get your 3D FOOD design”.<br>
+								<span class="spandark">Step 2 – </span>Click the “get your 3D FOOD design” button.<br>
 								<span class="spandark">Step 3 – </span>Visualize your design.<br>
-								<span class="spandark">Step 4  (Optional) – </span>Modify setting of some 3D printer parameters and 2.5D design parameters. The main parameter you can choose is the number of layers will have the gcode file (by default are 8 layers).<br>
-								<span class="spandark">Step 5 – </span>Download  GCode file with button “Save”.<br>
-								<strong>WHY THE GCODE FILE?</strong> G-code is a language in which people tell computerized machine tools how to make something. GCode file then is able to move and extrude with 3D printers. Measurements of design on gcode file is 100mmX100mm maximum. You can check gcode file with Repetier (software to manage 3D printers).<br> 
-								<strong>With this file and a 3D Printer for food you can make desserts like this!!</strong><br> 
+								<span class="spandark">Step 4  (Optional) – </span>Modify the 3D printer parameters and 2.5D design parameters by clicking the  settings button. The main parameter you can choose is the number of layers that the  gcode file (by default are 8 layers) will include.<br>
+								<span class="spandark">Step 5 – </span>Download GCode file by clicking the “Save” button<br>
+								<strong>WHY THE GCODE FILE?</strong> G-code is a language in which people tell computerized machine tools how to make something. Once the GCode file is fed to the machine it is able to move and extrude with 3D printers. The default measurements of design on your downloaded gcode file is 100mm X 100mm maximum. You can check your gcode file by using Repetier (software to manage 3D printers).<br> 
+								<strong>With this file and a 3D food Printer you can make desserts like this!!</strong><br> 
 								Some picture or video…
 							</p>
 					</article>
@@ -47,7 +47,7 @@
 				<form id="form0">						
 						<label for="id_day">DAY</label>						
 						<select name="id_day" id="id_day" class="selectinputdate" >    
-							<option value="01">01</option>
+							<option value="01"selected>01</option>
 							<option value="02">02</option>
 							<option value="03">03</option>
 							<option value="04">04</option>
@@ -71,7 +71,7 @@
 							<option value="22">22</option>
 							<option value="23">23</option>
 							<option value="24">24</option>
-							<option value="25" selected>25</option>
+							<option value="25">25</option>
 							<option value="26">26</option>
 							<option value="27">27</option>
 							<option value="28">28</option>
@@ -81,7 +81,7 @@
 						</select>							
 						<label for="id_month">MONTH</label>						
 						<select name="id_month" id="id_month" class="selectinputdate">    
-							<option value="1">January</option>
+							<option value="1"selected>January</option>
 							<option value="2">February</option>
 							<option value="3">March</option>
 							<option value="4">April</option>
@@ -91,11 +91,12 @@
 							<option value="8">August</option>
 							<option value="9">September</option>
 							<option value="10">October</option>
-							<option value="11" selected>November</option>
+							<option value="11">November</option>
 							<option value="12">December</option>							
 						</select>	
 						<label for="id_year">YEAR</label>
-						<input type="text" id="id_year" value="1969" size="6" maxlength="4" class="selectinputdate">
+						<input type="number" id="id_year" min="1000" max="9999" value="1969" size="6" maxlength="4" class="selectinputdate" >
+						<!--<input type="text" id="id_year" value="1969" size="6" maxlength="4" class="selectinputdate" >-->
 					</form>					
 			</div><!--END OF DATE FORM CONTENT-->	
 			<div id="div_canvas"> <!--CANVAS CONTENT-->		

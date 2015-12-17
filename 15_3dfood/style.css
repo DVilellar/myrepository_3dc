@@ -227,6 +227,7 @@ font-size: 22px;
 color: grey;
 }
 #id_year{
+width:80px;
 font-family: 'BebasNeueRegular', 'Arial Narrow', Arial, sans-serif;
 font-size: 22px;
 color: grey;
