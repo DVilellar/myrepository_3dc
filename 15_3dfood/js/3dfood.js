@@ -212,7 +212,7 @@ return d1;
 //Variables required
 var frame=1;
 var drawframe2=true;
-var posXbutton1=350;
+var posXbutton1= window.innerWidth/2;
 var posYbutton1 =130;
 var Diam_button1=200;
 var e1 = new Array;	
@@ -233,21 +233,18 @@ function myprocess(processing) {
 	*It's used to define initial enviroment properties such as screen size and to load media such as images and fonts as the program starts. 
 	*There can only be one setup() function for each program and it shouldn't be called again after its initial execution.
 	*/	
-	processing.setup = function(){
-		
+	processing.setup = function(){		
 		processing.frameRate(15);  //frames per second that function draw will run					
 		buttonclickhere = processing.loadImage ("data/buttonclickhere.png");
-		buttonclickhereon = processing.loadImage ("data/buttonclickhereon.png");
-		/*buttonhome = processing.loadImage ("data/buttonhome.png");	
-		buttonhomeon = processing.loadImage ("data/buttonhomeon.png");	*/
+		buttonclickhereon = processing.loadImage ("data/buttonclickhereon.png");		
 	}	
 	/*
 	*The draw() function is executed it depends of de frameRate on setup function
 	*/						
 	processing.draw = function() {							
 		/*defined screen size variables*/
-		var sizescreenx = 700;
-		var sizescreeny = 700;
+		var sizescreenx = window.innerWidth;
+		var sizescreeny = 500;
 		var orderedpoints="";  //initializing variable string
 		/*
 		*Below two functions onCircle and update1 exist to simulate that the button click here when mouse is over moves 
@@ -264,6 +261,7 @@ function myprocess(processing) {
 		}		
 		function update1(x,y) {  
 			if (onCircle(posXbutton1, posYbutton1, Diam_button1) ) {
+				
 				processing.image (buttonclickhereon, sizescreenx/2-90, 50); 
 			}  		 	
 		}		
@@ -446,7 +444,7 @@ function myprocess(processing) {
 			document.getElementById("div_textarea").style.display = "none"; //don't show textarea
 			document.getElementById("div_parametersform").style.display = "none"; //don't show settings form*/	
 			
-			var sizescreenx = 700;
+			var sizescreenx = window.innerWidth;
 			var sizescreeny = 300;
 			processing.size(sizescreenx,sizescreeny);  //screen size
 			
@@ -466,8 +464,10 @@ function myprocess(processing) {
 			document.getElementById("div_buttons").style.display = "block"; //show button gcode	
 			document.getElementById("div_textarea").style.display = "none"; //don't show textarea
 									
-			var sizescreenx = 700;
-			var sizescreeny = 650;
+			/*var sizescreenx = 700;*/
+			var sizescreenx = window.innerWidth;
+			var sizescreeny = 500;
+			
 			processing.size(sizescreenx,sizescreeny);  //screen size			
 			
 			/*drawing background colour on frame 2*/
@@ -566,7 +566,7 @@ function myprocess(processing) {
 			/*End of Selection of shape 1 (outside)*/
 			
 			/*parameters v_width and v_height for rectangles and elipses of shape 1 (outside)*/
-			var v_width = parseInt(550); 
+			var v_width = parseInt(475); 
 			if (sumdigitnumbers%2==0)
 			{ var v_height=parseInt(v_width);}
 			else
@@ -574,7 +574,7 @@ function myprocess(processing) {
 			/*end parameters v_width and v_height for rectangles and elipses of shape 1 (outside)*/
 			
 			/*parameters for flowers of shape 1 (outside)*/
-			var flower_radius1 = 262;
+			var flower_radius1 = 180; 
 			var v_npetalsflower;	
 			if (sumdigitnumbers==1) {v_npetalsflower=5;}
 			if (sumdigitnumbers==2) {v_npetalsflower=36;}
@@ -615,14 +615,14 @@ function myprocess(processing) {
 			/*end parameters for flowers of shape 1 (outside)*/
 			
 			/*parameters for rounded stars of shape 1 (outside)*/
-			var roundedstar_radius1 = 275;
+			var roundedstar_radius1 = 200;
 			var v_ncurvesroundedstar
 			var v_ncurvesroundedstar=v_npetalsflower;	
 			/*end of parameters for rounded stars of shape 1 (outside)*/
 			
 			/*parameters for stars of shape 1 (outside)*/
-			var star_radius1_shapeone = parseInt(processing.random(260,260));
-			var star_radius2_shapeone = parseInt(processing.random(304,304));			
+			var star_radius1_shapeone = parseInt(processing.random(185,185));
+			var star_radius2_shapeone = parseInt(processing.random(229,229));	
 			if (sumdigitnumbers>18){
 			var v_pointsstar_shapeone = parseInt(processing.random(sumdigitnumbers,sumdigitnumbers));	
 			}
@@ -835,7 +835,7 @@ function myprocess(processing) {
 				
 			/*PARAMETERS OF SHAPE 2 (inside)********************************************************************/			
 			/*parameters v_width and v_height for rectangles triangles and elipses of shape 2 (inside)*/
-			var v_width = parseInt(350); 
+			var v_width = parseInt(250); 
 			if (numbers[3]%2==0)
 			{ var v_height=parseInt(v_width);}
 			else
@@ -843,12 +843,12 @@ function myprocess(processing) {
 			/*end of parameters v_width and v_height for rectangles triangles and elipses*/
 			
 			/*parameters for star of shape 2 (inside)*/
-			var star_radius1 = parseInt(processing.random(125,125));
-			var star_radius2 = parseInt(processing.random(190,190));				
+			var star_radius1 = parseInt(processing.random(75,75));
+			var star_radius2 = parseInt(processing.random(115,115));				
 			var v_pointsstar2 = parseInt(processing.random(8,9));
 			
 			/*parameters for flower of shape 2 (inside)*/			
-			var flower_radius1 = 180;
+			var flower_radius1 = 105;
 			if (sumdigitnumbers==1) {var v_npetalsflower2 = 6;}
 			if (sumdigitnumbers==2) {var v_npetalsflower2 = 7;}
 			if (sumdigitnumbers==3) {var v_npetalsflower2 = 8;}
@@ -856,7 +856,7 @@ function myprocess(processing) {
 			if (sumdigitnumbers>=5) {var v_npetalsflower2 = sumdigitnumbers;}	
 		
 			/*parameters for roundedstar of shape 2 (inside)*/
-			var roundedstar_radius1 = 175;			
+			var roundedstar_radius1 = 90;			
 			if (sumdigitnumbers<=5) {var v_ncurvesroundedstar2=6;}
 			if (sumdigitnumbers>=6 & sumdigitnumbers<=10 ) {var v_ncurvesroundedstar2=7;}
 			if (sumdigitnumbers>=11 & sumdigitnumbers<=15 ) {var v_ncurvesroundedstar2=8;}
@@ -866,10 +866,10 @@ function myprocess(processing) {
 			if (sumdigitnumbers>=31 & sumdigitnumbers<=36 ) {var v_ncurvesroundedstar2=12;}
 			
 			/*parameters for heart of shape 2 (inside)*/
-			if (numbers[0]%2==0 & numbers[2]%2==0) { var v_sizeheart2=10 }
-			if (numbers[0]%2==0 & numbers[2]%2!=0) { var v_sizeheart2=11 }
-			if (numbers[0]%2!=0 & numbers[2]%2==0) { var v_sizeheart2=13 }
-			if (numbers[0]%2!=0 & numbers[2]%2!=0) { var v_sizeheart2=15 }
+			if (numbers[0]%2==0 & numbers[2]%2==0) { var v_sizeheart2=6 }
+			if (numbers[0]%2==0 & numbers[2]%2!=0) { var v_sizeheart2=7 }
+			if (numbers[0]%2!=0 & numbers[2]%2==0) { var v_sizeheart2=9 }
+			if (numbers[0]%2!=0 & numbers[2]%2!=0) { var v_sizeheart2=11 }
 			
 			
 			processing.noFill(); // no fill shapes

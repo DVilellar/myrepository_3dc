@@ -97,7 +97,8 @@ a{
 
 /*STYLE FOR ACCORDION SECTION*/
 .ac-container{
-	width:700px;
+	width: 95%;
+	max-width: 700px;	
 	margin: 10px auto 30px auto;
 	text-align: left;
 }
@@ -238,8 +239,9 @@ height:40px;
 
 /*STYLE FOR BUTTONS*/
 #div_buttons{
-width:700px;
+width:100%;
 margin: 0 auto;
+display: inline-block;
 }
 button {
 	-moz-box-shadow: 3px 4px 0px 0px #899599;
