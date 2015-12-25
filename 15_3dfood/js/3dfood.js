@@ -65,30 +65,23 @@ function createGcode(pointshapeone,numpoints1,e1,pointshapetwo,numpoints2,e2,ini
   gcode=gcode+"G1 F"+feedrate+"\n";
   var actual_ext=0;
     for (var layer_counter=1; layer_counter <= numlayers; layer_counter = layer_counter+1){
-		var numbershape=1;
+		var numbershape=1;		
 		
-		gcode=gcode+";Moving to the layer number "+(layer_counter)+"\n";
-		if (layer_counter > 1) {
-		actual_z=actual_z+layerheight;		
-		}
-		gcode=gcode+"G1 Z"+actual_z+"\n";
 		if (layer_counter > 1){
+		actual_z=actual_z+layerheight;
+		
 		eretraction=actual_ext-Retraction;
 		gcode=gcode+";Retraction"+"\n";
 		gcode=gcode+"G1 E"+eretraction.toFixed(6)+" F200"+"\n";	
-		eztravelheight=actual_z+Ztravelheight;
-		gcode=gcode+";Z travel height"+"\n";
-		gcode=gcode+"G1 Z"+eztravelheight+" F"+feedrate+"\n";
+		
+		gcode=gcode+";Moving to the layer number "+(layer_counter)+" No z travel height between layers"+"\n";
+		gcode=gcode+"G1 Z"+actual_z+" F"+feedrate+"\n";		
 		
 		gcode=gcode+";Move to the first point ...................................\n";
-		gcode=gcode+"G1 X"+pointshapeone[0].x.toFixed(4)+" Y"+pointshapeone[0].y.toFixed(4)+"\n";
-		
-		gcode=gcode+";return to z travel height"+"\n";	
-		gcode=gcode+"G1 Z"+actual_z+"\n";
-		
+		gcode=gcode+"G1 X"+pointshapeone[0].x.toFixed(4)+" Y"+pointshapeone[0].y.toFixed(4)+"\n";		
+				
 		gcode=gcode+";advance extruder position (recover retraction)"+"\n";	
-		gcode=gcode+"G1 E"+actual_ext.toFixed(6)+" F200"+"\n";
-		
+		gcode=gcode+"G1 E"+actual_ext.toFixed(6)+" F200"+"\n";		
 		}	
 		
 		//1st shape
