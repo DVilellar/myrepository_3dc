@@ -239,9 +239,8 @@ height:40px;
 
 /*STYLE FOR BUTTONS*/
 #div_buttons{
-width:100%;
+width:400px;
 margin: 0 auto;
-display: inline-block;
 }
 button {
 	-moz-box-shadow: 3px 4px 0px 0px #899599;
@@ -309,7 +308,7 @@ font-family: 'BebasNeueRegular', 'Arial Narrow', Arial, sans-serif;
 font-size: 24px;
 color: grey;
 float:right;
-margin-right:12px;
+margin-right:20px;
 }
 #settingbutton:hover{
 color: #3d7489;

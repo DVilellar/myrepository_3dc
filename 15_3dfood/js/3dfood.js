@@ -40,9 +40,11 @@ function point (pcoord_x,pcoord_y){
 /*
 *This function is to create the string called gcode following G-code language
 */
-function createGcode(pointshapeone,numpoints1,e1,pointshapetwo,numpoints2,e2,initialheight,layerheight,numlayers,feedrate,ExtValueBuildUpPressure,ExtValueReleasePressure){
+function createGcode(pointshapeone,numpoints1,e1,pointshapetwo,numpoints2,e2,initialheight,layerheight,numlayers,feedrate,ExtValueBuildUpPressure,ExtValueReleasePressure,Retraction,Ztravelheight){
  var gcode=";gcode generated from 3dfood.js\n";
  var actual_z=0;
+ var eretraction;//new
+ var eztravelheight;//new
   gcode=gcode+";developped by: David Vilella Riera\n";
   gcode=gcode+";THE CODE:\n";
   gcode=gcode+";Homing all axis\n";
@@ -67,24 +69,50 @@ function createGcode(pointshapeone,numpoints1,e1,pointshapetwo,numpoints2,e2,ini
 		
 		gcode=gcode+";Moving to the layer number "+(layer_counter)+"\n";
 		if (layer_counter > 1) {
-		actual_z=actual_z+layerheight;
-		
+		actual_z=actual_z+layerheight;		
 		}
 		gcode=gcode+"G1 Z"+actual_z+"\n";
 		if (layer_counter > 1){
+		eretraction=actual_ext-Retraction;
+		gcode=gcode+";Retraction"+"\n";
+		gcode=gcode+"G1 E"+eretraction.toFixed(6)+" F200"+"\n";	
+		eztravelheight=actual_z+Ztravelheight;
+		gcode=gcode+";Z travel height"+"\n";
+		gcode=gcode+"G1 Z"+eztravelheight+" F"+feedrate+"\n";
+		
 		gcode=gcode+";Move to the first point ...................................\n";
-		gcode=gcode+"G1 X"+pointshapeone[0].x.toFixed(4)+" Y"+pointshapeone[0].y.toFixed(4)+" E"+actual_ext.toFixed(6)+"\n";
+		gcode=gcode+"G1 X"+pointshapeone[0].x.toFixed(4)+" Y"+pointshapeone[0].y.toFixed(4)+"\n";
+		
+		gcode=gcode+";return to z travel height"+"\n";	
+		gcode=gcode+"G1 Z"+actual_z+"\n";
+		
+		gcode=gcode+";advance extruder position (recover retraction)"+"\n";	
+		gcode=gcode+"G1 E"+actual_ext.toFixed(6)+" F200"+"\n";
+		
 		}	
 		
 		//1st shape
 		for ( p_counter = 1; p_counter < numpoints1; p_counter = p_counter+1) {
 			actual_ext=actual_ext+e1[p_counter-1];
 			gcode=gcode+";Move to the point "+(p_counter+1)+" of shape "+numbershape+"\n";
+			if (p_counter ==1 & layer_counter>1){
+			gcode=gcode+"G1 X"+pointshapeone[p_counter].x.toFixed(4)+" Y"+pointshapeone[p_counter].y.toFixed(4)+" E"+actual_ext.toFixed(6)+" F"+feedrate+"\n";
+			}
+			else{
 			gcode=gcode+"G1 X"+pointshapeone[p_counter].x.toFixed(4)+" Y"+pointshapeone[p_counter].y.toFixed(4)+" E"+actual_ext.toFixed(6)+"\n"; 
+			}
 		}	
 			actual_ext=actual_ext+e1[numpoints1-1];
 			gcode=gcode+";to close shape "+numbershape+" we need to go back to the first point\n";
 			gcode=gcode+"G1 X"+pointshapeone[0].x.toFixed(4)+" Y"+pointshapeone[0].y.toFixed(4)+" E"+actual_ext.toFixed(6)+"\n"; 
+		
+		eretraction=actual_ext-Retraction;
+		gcode=gcode+";Retraction"+"\n";
+		gcode=gcode+"G1 E"+eretraction.toFixed(6)+" F200"+"\n";
+		
+		eztravelheight=actual_z+Ztravelheight;
+		gcode=gcode+";Z travel height"+"\n";
+		gcode=gcode+"G1 Z"+eztravelheight+" F"+feedrate+"\n";
 		
 		//2nd shape
 		numbershape=numbershape+1; 
@@ -96,8 +124,22 @@ function createGcode(pointshapeone,numpoints1,e1,pointshapetwo,numpoints2,e2,ini
 			{
 			actual_ext=actual_ext
 			}			
+			
 			gcode=gcode+";Move to the point "+(p_counter+1)+" of shape "+numbershape+"\n";
-			gcode=gcode+"G1 X"+pointshapetwo[p_counter].x.toFixed(4)+" Y"+pointshapetwo[p_counter].y.toFixed(4)+" E"+actual_ext.toFixed(6)+"\n"; 			
+			if (p_counter == 0){
+			gcode=gcode+"G1 X"+pointshapetwo[p_counter].x.toFixed(4)+" Y"+pointshapetwo[p_counter].y.toFixed(4)+"\n";
+			gcode=gcode+";return to z travel height"+"\n";	
+			gcode=gcode+"G1 Z"+actual_z+"\n";
+			gcode=gcode+";advance extruder position (recover retraction)"+"\n";	
+			gcode=gcode+"G1 E"+actual_ext.toFixed(6)+" F200"+"\n";	
+			}
+			else if (p_counter == 1){
+				gcode=gcode+"G1 X"+pointshapetwo[p_counter].x.toFixed(4)+" Y"+pointshapetwo[p_counter].y.toFixed(4)+" E"+actual_ext.toFixed(6)+" F"+feedrate+"\n";
+				}
+				else{	
+				gcode=gcode+"G1 X"+pointshapetwo[p_counter].x.toFixed(4)+" Y"+pointshapetwo[p_counter].y.toFixed(4)+" E"+actual_ext.toFixed(6)+"\n"; 
+				}
+				
 		}	
 			actual_ext=actual_ext+e2[numpoints2-1]	
 			gcode=gcode+";to close shape "+numbershape+" we need to go back to the first point\n";
@@ -481,7 +523,9 @@ function myprocess(processing) {
 			var v_matdiameter = parseFloat(document.getElementById("id_matdiameter").value);
 			var v_nozzlediameter = parseFloat(document.getElementById("id_nozzlediameter").value);
 			var v_ExtValueBuildUpPressure = parseFloat(document.getElementById("id_ExtValueBuildUpPressure").value);
-			var v_ExtValueReleasePressure = parseFloat(document.getElementById("id_ExtValueReleasePressure").value);						
+			var v_ExtValueReleasePressure = parseFloat(document.getElementById("id_ExtValueReleasePressure").value);
+			var v_Retraction = parseFloat(document.getElementById("id_Retraction").value);
+			var v_Ztravelheight = parseFloat(document.getElementById("id_Ztravelheight").value);			
 						
 			/*-----------------------------------------------------------BEGIN RANDOM DESIGN---------------------------------------------------------------*/
 			totalpoints=0;
@@ -929,7 +973,7 @@ function myprocess(processing) {
 				var e2=createextrusionincrementvalues(d2,numpoints2,v_matdiameter,v_nozzlediameter); //CREATING ARRAY e2 OF EXTRUSION INCREMENT OF SHAPE 2 
 				
 				gcodetext="";
-				gcodetext=createGcode(pointshapeone,numpoints1,e1,pointshapetwo,numpoints2,e2,v_iheight,v_layerheight,v_numlayers,v_feedrate,v_ExtValueBuildUpPressure,v_ExtValueReleasePressure); //CREATING STRING gcodetext				
+				gcodetext=createGcode(pointshapeone,numpoints1,e1,pointshapetwo,numpoints2,e2,v_iheight,v_layerheight,v_numlayers,v_feedrate,v_ExtValueBuildUpPressure,v_ExtValueReleasePressure,v_Retraction,v_Ztravelheight); //CREATING STRING gcodetext				
 					
 		} //END OF FUNCTION CANVASFRAME2----------------------------------------------------------------------------------------------------------------------------------
 		

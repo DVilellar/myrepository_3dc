@@ -2,7 +2,6 @@
 <html lang="en">
     <head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<!--<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> -->
 		<meta name="author" content="David Vilella Riera">
 		<meta name="description" content="3d FOOD PRINTING">
 		<meta charset="UTF-8" />        
@@ -21,7 +20,7 @@
         <div class="container">  <!--MAIN DIV --> 
 			<header> <!--HEADER CONTENT -->
 				<h1>3DFOOD<span>for special dates</span></h1>
-				<h2>Developped by David Vilella Riera for <a href="http://www.3digitalcooks.com" title="Link to 3digitalcooks.com"target="_blank">3digitalcooks.com</a></h2>		
+				<h2>Developed by David Vilella Riera for <a href="http://www.3digitalcooks.com" title="Link to 3digitalcooks.com"target="_blank">3digitalcooks.com</a></h2>		
 			</header>
 			<section class="ac-container"> <!--CONTAINER FOR ACCORDION CONTENT - WILL INCLUDE THE STORY OF APP -->
 				<div>
@@ -47,7 +46,7 @@
 				<form id="form0">						
 						<label for="id_day">DAY</label>						
 						<select name="id_day" id="id_day" class="selectinputdate" >    
-							<option value="01"selected>01</option>
+							<option value="01">01</option>
 							<option value="02">02</option>
 							<option value="03">03</option>
 							<option value="04">04</option>
@@ -71,7 +70,7 @@
 							<option value="22">22</option>
 							<option value="23">23</option>
 							<option value="24">24</option>
-							<option value="25">25</option>
+							<option value="25"selected>25</option>
 							<option value="26">26</option>
 							<option value="27">27</option>
 							<option value="28">28</option>
@@ -81,7 +80,7 @@
 						</select>							
 						<label for="id_month">MONTH</label>						
 						<select name="id_month" id="id_month" class="selectinputdate">    
-							<option value="1"selected>January</option>
+							<option value="1">January</option>
 							<option value="2">February</option>
 							<option value="3">March</option>
 							<option value="4">April</option>
@@ -91,7 +90,7 @@
 							<option value="8">August</option>
 							<option value="9">September</option>
 							<option value="10">October</option>
-							<option value="11">November</option>
+							<option value="11" selected>November</option>
 							<option value="12">December</option>							
 						</select>	
 						<label for="id_year">YEAR</label>
@@ -131,10 +130,14 @@
 							<input type="text" id="id_matdiameter" value="15" size="5" class="selectinput1"><br>
 							<label for="id_nozzlediameter">Nozzle diameter(mm)</label>
 							<input type="text" id="id_nozzlediameter" value="1.5" size="5" class="selectinput1"><br>
-							<label for="id_ExtValueBuildUpPressure">Build up pressure:</label>
+							<label for="id_ExtValueBuildUpPressure">Build up pressure</label>
 							<input type="text" id="id_ExtValueBuildUpPressure" value="2.5" size="5" class="selectinput1"><br>
-							<label for="id_ExtValueReleasePressure">Release pressure:</label>
+							<label for="id_ExtValueReleasePressure">Release pressure</label>
 							<input type="text" id="id_ExtValueReleasePressure" value="2" size="5" class="selectinput1"><br>
+							<label for="id_Retraction">Retraction(mm)</label>
+							<input type="text" id="id_Retraction" value="1" size="5" class="selectinput1"><br>
+							<label for="id_Ztravelheight">Z travel height(mm)</label>
+							<input type="text" id="id_Ztravelheight" value="1" size="5" class="selectinput1"><br>
 					</fieldset>	
 					</div>	
 				</form>	
