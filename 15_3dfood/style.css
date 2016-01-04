@@ -195,7 +195,7 @@ a{
 	height: 180px;
 }
 .ac-container input:checked ~ article.ac-large{
-	height: 500px;
+	height: 1100px;
 }
 .spandark {
 color: #3d7489;
@@ -204,6 +204,16 @@ font-weight: bold;
 .spanlight {
 color: #80B8CE;
 font-weight: bold;
+}
+.centered{
+display:block;
+margin-top:5px;
+margin-left: auto;
+margin-right: auto;
+}
+.spanpicture {
+color: #3d7489;
+margin-left: 85px;
 }
 
 /*STYLE FOR DATE FORM*/
